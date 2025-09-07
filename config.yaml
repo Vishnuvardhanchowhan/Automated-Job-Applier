@@ -1,0 +1,14 @@
+credentials:
+  usernames:
+    vishnu:
+      email: vishnu@bintix.com
+      name: Vishnuvardhan Chowhan
+      password: '$2b$12$mDOfwBkl03FcN5u44qoyxud7VxTuIVjfrpRccS1iQ2B3MqBfnh6jO'
+    sakshi:
+      email: sakshi@bintix.com
+      name: Sakshi Gawande
+      password: '$2b$12$mDOfwBkl03FcN5u44qoyxud7VxTuIVjfrpRccS1iQ2B3MqBfnh6jO'
+cookie:
+  expiry_days: 0
+  key: random_signature_key
+  name: random_cookie_name
