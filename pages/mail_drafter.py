@@ -492,7 +492,7 @@ class EmailSender:
         self.pdf_filename = generate_cover_letter_pdf(self.text, self.name.capitalize(), self.official_role,
                                                       f"{st.session_state.get('username')} Cover Letter.pdf")
         self.official_name = "sakshigawandecse@gmail.com"
-        self.resume_path = r"Sakshi Gawande Resume.pdf"
+        self.resume_path = r"Sakshi_Gawande_Resume.pdf"
         return self.email_body, self.pdf_filename, self.official_name, self.resume_path
 
 
