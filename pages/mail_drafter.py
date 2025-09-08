@@ -5,34 +5,74 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from io import BytesIO
 from textwrap import dedent
-import openpyxl
-import requests
 import streamlit as st
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import LETTER
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
-import os.path
+import os
+import base64
+import json
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from google.oauth2 import service_account
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from dotenv import load_dotenv
 
-# Define scopes for spreadsheet access
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+load_dotenv()
+creds_base64 = os.getenv('GOOGLE_CREDENTIALS_BASE64')
 
 def authenticate_google_sheets():
+    """Authenticate with Google Sheets API using environment variables."""
     creds = None
-    if os.path.exists("token.json"):
+    token_base64 = os.getenv('GOOGLE_TOKEN_BASE64')
+    if token_base64 and os.path.exists("token.json"):
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
-    if not creds or not creds.valid:
+    creds_base64 = os.getenv('GOOGLE_CREDENTIALS_BASE64')
+    if creds_base64:
+        try:
+            creds_json = base64.b64decode(creds_base64).decode('utf-8')
+            creds_info = json.loads(creds_json)
+            creds = service_account.Credentials.from_service_account_info(
+                creds_info,
+                scopes=SCOPES
+            )
+            print("Using service account credentials from environment variable")
+        except Exception as e:
+            print(f"Error decoding service account credentials: {e}")
+            return None
+    elif not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            client_id = os.getenv('GOOGLE_CLIENT_ID')
+            client_secret = os.getenv('GOOGLE_CLIENT_SECRET')
+            if client_id and client_secret:
+                client_config = {
+                    "web": {
+                        "client_id": client_id,
+                        "client_secret": client_secret,
+                        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                        "token_uri": "https://oauth2.googleapis.com/token"
+                    }
+                }
+                flow = InstalledAppFlow.from_client_config(
+                    client_config,
+                    SCOPES
+                )
+            else:
+                if not os.path.exists("credentials.json"):
+                    print(
+                        "No credentials found. Please set GOOGLE_CREDENTIALS_BASE64 or GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET environment variables.")
+                    return None
+                flow = InstalledAppFlow.from_client_secrets_file(
+                    "credentials.json", SCOPES
+                )
+
             creds = flow.run_local_server(port=0)
         with open("token.json", "w") as token:
             token.write(creds.to_json())
