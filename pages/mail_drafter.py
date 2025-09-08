@@ -33,6 +33,7 @@ def authenticate_google_sheets():
     if token_base64 and os.path.exists("token.json"):
         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
     creds_base64 = os.getenv('GOOGLE_CREDENTIALS_BASE64')
+    st.write("Creds found?", bool(creds_base64))
     if creds_base64:
         try:
             creds_json = base64.b64decode(creds_base64).decode('utf-8')
