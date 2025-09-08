@@ -40,9 +40,9 @@ def authenticate_google_sheets():
             creds_info = json.loads(creds_json)
             flow = InstalledAppFlow.from_client_config(creds_info, SCOPES)
             creds = flow.run_local_server(port=0)
-            print("Using service account credentials from environment variable")
+            st.write("Using service account credentials from environment variable")
         except Exception as e:
-            print(f"Error decoding service account credentials: {e}")
+            st.write(f"Error decoding service account credentials: {e}")
             return None
     elif not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -65,7 +65,7 @@ def authenticate_google_sheets():
                 )
             else:
                 if not os.path.exists("credentials.json"):
-                    print(
+                    st.write(
                         "No credentials found. Please set GOOGLE_CREDENTIALS_BASE64 or GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET environment variables.")
                     return None
                 flow = InstalledAppFlow.from_client_secrets_file(
@@ -79,7 +79,7 @@ def authenticate_google_sheets():
         service = build("sheets", "v4", credentials=creds)
         return service
     except HttpError as err:
-        print(f"Authentication error: {err}")
+        st.write(f"Authentication error: {err}")
         return None
 
 def ensure_user_sheet_exists(service, spreadsheet_id, user_name):
