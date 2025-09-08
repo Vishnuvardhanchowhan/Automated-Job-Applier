@@ -3,4 +3,7 @@ pyyaml==6.0
 streamlit-authenticator==0.4.2
 reportlab==3.6.12
 openpyxl==3.1.2
-requests==2.31.0
+requests==2.32.4
+google-api-python-client==2.143.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.2.1

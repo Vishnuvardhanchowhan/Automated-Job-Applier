@@ -1,42 +1,101 @@
-import streamlit as st
 import os
+import smtplib
+from datetime import date
+from email import encoders
+from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-import smtplib
-from email import encoders
-from datetime import date
+from io import BytesIO
 from textwrap import dedent
-from reportlab.lib.pagesizes import LETTER
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
 import openpyxl
 import requests
-from io import BytesIO
+import streamlit as st
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import LETTER
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
+import os.path
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
-def load_file_from_gdrive(share_url):
-    """
-    Downloads a file from Google Drive shared link.
-    Returns file content as BytesIO (you can read it with pandas, PIL, etc.)
-    """
-    # Extract file id from share link
-    if "id=" in share_url:
-        file_id = share_url.split("id=")[1]
-    elif "/d/" in share_url:
-        file_id = share_url.split("/d/")[1].split("/")[0]
-    else:
-        raise ValueError("Invalid Google Drive link format")
+# Define scopes for spreadsheet access
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
-    # Direct download URL
-    download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+def authenticate_google_sheets():
+    creds = None
+    if os.path.exists("token.json"):
+        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open("token.json", "w") as token:
+            token.write(creds.to_json())
+    try:
+        service = build("sheets", "v4", credentials=creds)
+        return service
+    except HttpError as err:
+        print(f"Authentication error: {err}")
+        return None
 
-    # Download
-    response = requests.get(download_url)
-    response.raise_for_status()
+def ensure_user_sheet_exists(service, spreadsheet_id, user_name):
+    try:
+        # Get all sheets in the spreadsheet
+        spreadsheet = service.spreadsheets().get(spreadsheetId=spreadsheet_id).execute()
+        sheets = spreadsheet.get('sheets', [])
+        sheet_exists = any(sheet['properties']['title'] == user_name for sheet in sheets)
 
-    return BytesIO(response.content)
+        if not sheet_exists:
+            # Create a new sheet for the user
+            requests = [{
+                "addSheet": {
+                    "properties": {
+                        "title": user_name
+                    }
+                }
+            }]
+            body = {'requests': requests}
+            service.spreadsheets().batchUpdate(
+                spreadsheetId=spreadsheet_id,
+                body=body
+            ).execute()
+            print(f"Created new sheet for user: {user_name}")
 
+            # Initialize headers in the new sheet
+            headers = [
+                "Date", "Company", "Role", "Job ID", "Recruiter Name",
+                "Recruiter Emails", "Subject Line", "Why Join", "JD", "Status"
+            ]
+            body = {'values': [headers]}
+            service.spreadsheets().values().update(
+                spreadsheetId=spreadsheet_id,
+                range=f"{user_name}!A1:J1",
+                valueInputOption="RAW",
+                body=body
+            ).execute()
+        else:
+            print(f"Sheet for user {user_name} already exists.")
+    except HttpError as err:
+        print(f"Error ensuring sheet exists: {err}")
+
+def log_application(service, spreadsheet_id, user_name, details):
+    ensure_user_sheet_exists(service, spreadsheet_id, user_name)
+    try:
+        body = {'values': [details]}
+        result = service.spreadsheets().values().append(
+            spreadsheetId=spreadsheet_id,
+            range=f"{user_name}!A:J",
+            valueInputOption="RAW",
+            body=body
+        ).execute()
+        print(f"Logged application for user {user_name}: {result.get('updates').get('updatedCells')} cells updated.")
+    except HttpError as err:
+        print(f"Error logging application: {err}")
 
 # ---------------- PDF GENERATOR ----------------
 def generate_cover_letter_pdf(text, name, official_role, filename):
@@ -107,21 +166,21 @@ def generate_cover_letter_pdf(text, name, official_role, filename):
     doc.build(elements)
     return filename
 
-def log_application(filename, details):
-    if not os.path.exists(filename):
-        wb = openpyxl.Workbook()
-        ws = wb.active
-        ws.title = "Applications"
-        ws.append([
-            "Date", "Company", "Role", "Job ID", "Recruiter Name",
-            "Recruiter Emails", "Subject Line", "Why Join", 'JD', "Status"
-        ])
-        wb.save(filename)
-
-    wb = openpyxl.load_workbook(filename)
-    ws = wb.active
-    ws.append(details)
-    wb.save(filename)
+# def log_application(filename, details):
+#     if not os.path.exists(filename):
+#         wb = openpyxl.Workbook()
+#         ws = wb.active
+#         ws.title = "Applications"
+#         ws.append([
+#             "Date", "Company", "Role", "Job ID", "Recruiter Name",
+#             "Recruiter Emails", "Subject Line", "Why Join", 'JD', "Status"
+#         ])
+#         wb.save(filename)
+#
+#     wb = openpyxl.load_workbook(filename)
+#     ws = wb.active
+#     ws.append(details)
+#     wb.save(filename)
 
 class EmailSender:
     def __init__(self, role, recruiter, role_name, company_name, why_company=None):
@@ -187,7 +246,7 @@ class EmailSender:
             <li>Apply ML models for trend detection and product benchmarking</li>
             </ul>
 
-            <p>My experience in Python, SQL, Machine learning, and Analytics has enabled global clients to improve efficiency and accuracy, and I am eager to bring the same impact to <b>{company_name}</b>.</p>
+            <p>My experience in Python, SQL, Machine learning, and Analytics has enabled global clients to improve efficiency and accuracy, and I am eager to bring the same impact to <b>{self.company_name}</b>.</p>
 
             <p><b>Best regards,</b><br>
             <b>Vishnuvardhan Chowhan</b><br>
@@ -266,7 +325,7 @@ class EmailSender:
             self.bullet2 = "Created dashboards that integrate data lineage and business KPIs, improving both transparency and decision-making."
             self.bullet3 = "Worked with global clients where ensuring data compliance, accuracy, and auditability was critical—strengthening my governance-first mindset."
             self.highlights = "Data governance, Python, SQL, ETL, pipeline validation, data lineage, compliance"
-            self.cta = f"I’d be glad to discuss how my combined experience in analytics and engineering can help strengthen {company_name}’s data governance and reliability frameworks."
+            self.cta = f"I’d be glad to discuss how my combined experience in analytics and engineering can help strengthen {self.company_name}’s data governance and reliability frameworks."
         elif self.role == 'Product Analyst':
             self.email_body = f"""
             <p>Hi {self.recruiter},</p>
@@ -300,7 +359,7 @@ class EmailSender:
             self.bullet2 = "Automated SQL + Python pipelines for real-time consumer insights, reducing latency between data collection and decision-making."
             self.bullet3 = "Developed an Innovations Tracker Dashboard that benchmarked competitor products, providing strategic inputs to product roadmaps."
             self.highlights = "Product analytics, SQL, Python, dashboarding, funnel analysis, retention, consumer insights"
-            self.cta = f"I’d welcome the opportunity to show how my data-driven approach can support {company_name}’s product growth and decision-making."
+            self.cta = f"I’d welcome the opportunity to show how my data-driven approach can support {self.company_name}’s product growth and decision-making."
 
         self.TEMPLATE = """{today}
         Hiring Manager
@@ -495,111 +554,119 @@ class EmailSender:
         self.resume_path = r"Sakshi_Gawande_Resume.pdf"
         return self.email_body, self.pdf_filename, self.official_name, self.resume_path
 
+def main():
+    # ---------------- STREAMLIT UI ----------------
+    st.set_page_config(page_title="Automated Job Application", page_icon="📧")
 
-# ---------------- STREAMLIT UI ----------------
-st.set_page_config(page_title="Automated Job Application", page_icon="📧")
+    st.title("📧 Automated Job Application Email Generator")
+    user = st.session_state.get("username")
+    st.markdown(
+        "Fill in the details below to generate a professional email and cover letter for recruiters."
+    )
 
-st.title("📧 Automated Job Application Email Generator")
-user = st.session_state.get("username")
-st.markdown(
-    "Fill in the details below to generate a professional email and cover letter for recruiters."
-)
+    st.header("1️⃣ Role & Job Details")
 
-st.header("1️⃣ Role & Job Details")
+    if user == 'vishnu':
+        role = st.selectbox("Select the Role", ['Data Analyst', 'Data Scientist', 'Data Engineer', 'Data Governance Analyst', 'Product Analyst'])
+    elif user == 'sakshi':
+        role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer'])
+    role_name = st.text_input("Official Role Name (as per Job Posting)", placeholder="Type here...")
+    job_id = st.text_input("Job ID / Reference Number", placeholder="Type here...")
 
-if user == 'vishnu':
-    role = st.selectbox("Select the Role", ['Data Analyst', 'Data Scientist', 'Data Engineer', 'Data Governance Analyst', 'Product Analyst'])
-elif user == 'sakshi':
-    role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer'])
-role_name = st.text_input("Official Role Name (as per Job Posting)", placeholder="Type here...")
-job_id = st.text_input("Job ID / Reference Number", placeholder="Type here...")
+    st.header("2️⃣ Recruiter & Company Info")
+    recruiter_mail = st.text_input("Recruiter's Email(s)", placeholder="e.g., adarsh@company.com, rina@company.com")
+    recipient_list = [email.strip() for email in recruiter_mail.split(",") if email.strip()]
+    company_name = st.text_input("Company Name", placeholder="Type here...")
 
-st.header("2️⃣ Recruiter & Company Info")
-recruiter_mail = st.text_input("Recruiter's Email(s)", placeholder="e.g., adarsh@company.com, rina@company.com")
-recipient_list = [email.strip() for email in recruiter_mail.split(",") if email.strip()]
-company_name = st.text_input("Company Name", placeholder="Type here...")
+    st.header("3️⃣ Motivation & Customization")
+    catchy_subject = st.text_input(
+        "Write catchy subject to attract recruiters ✨",
+        placeholder="Write witty subject..."
+    )
+    why_company = st.text_input(
+        "Why do you want to join this company?",
+        placeholder="Write 1–2 lines about your motivation..."
+    )
+    job_description = st.text_input(
+        "Job description link for future follow ups?",
+        placeholder="Job description link..."
+    )
 
-st.header("3️⃣ Motivation & Customization")
-catchy_subject = st.text_input(
-    "Write catchy subject to attract recruiters ✨",
-    placeholder="Write witty subject..."
-)
-why_company = st.text_input(
-    "Why do you want to join this company?",
-    placeholder="Write 1–2 lines about your motivation..."
-)
-job_description = st.text_input(
-    "Job description link for future follow ups?",
-    placeholder="Job description link..."
-)
+    st.markdown("---")
+    st.caption("⚠️ Make sure all fields are filled before generating the email.")
 
-st.markdown("---")
-st.caption("⚠️ Make sure all fields are filled before generating the email.")
-
-if st.button("Send"):
-    pass_dict = {'sakshigawandecse@gmail.com':"illr ufri rqeo cwia", "vishnuvardhan.chowhan@gmail.com": "dipi cqsq sgvz ukof"}
-    if not recruiter_mail or not company_name or not role_name:
-        st.warning("⚠️ Please fill in all the fields before sending.")
-    else:
-        st.success("✅ All fields are filled. Ready to send!")
-    # ---------------- EMAIL ----------------
-    for recipient in recipient_list:
-        email_username = recipient.split("@")[0]
-        recruiter_name = email_username.replace(".", " ").title()
-        email = EmailSender(
-            role=role,
-            recruiter=recruiter_name,
-            role_name=role_name,
-            company_name=company_name,
-            why_company=why_company)
-        method = getattr(email, user)
-        email_body, pdf_filename, official_mail, resume_path = method()
-        msg = MIMEMultipart()
-        msg["From"] = official_mail
-        msg["To"] = recipient
-        if catchy_subject:
-            msg["Subject"] = catchy_subject
-        elif not job_id:
-            msg["Subject"] = f"{role_name} Role Application – Resume & Cover Letter"
+    if st.button("Send"):
+        pass_dict = {'sakshigawandecse@gmail.com':"illr ufri rqeo cwia", "vishnuvardhan.chowhan@gmail.com": "dipi cqsq sgvz ukof"}
+        if not recruiter_mail or not company_name or not role_name:
+            st.warning("⚠️ Please fill in all the fields before sending.")
         else:
-            msg["Subject"] = f"{role_name} Application [{job_id}] – Resume & Cover Letter"
-        body = MIMEText(email_body, "html")
-        msg.attach(body)
-        if os.path.exists(resume_path):
-            with open(resume_path, "rb") as attachment:
-                part = MIMEBase("application", "octet-stream")
-                part.set_payload(attachment.read())
-            encoders.encode_base64(part)
-            part.add_header("Content-Disposition", f"attachment; filename={os.path.basename(resume_path)}")
-            msg.attach(part)
+            st.success("✅ All fields are filled. Ready to send!")
+        # ---------------- EMAIL ----------------
+        for recipient in recipient_list:
+            email_username = recipient.split("@")[0]
+            recruiter_name = email_username.replace(".", " ").title()
+            email = EmailSender(
+                role=role,
+                recruiter=recruiter_name,
+                role_name=role_name,
+                company_name=company_name,
+                why_company=why_company)
+            method = getattr(email, user)
+            email_body, pdf_filename, official_mail, resume_path = method()
+            msg = MIMEMultipart()
+            msg["From"] = official_mail
+            msg["To"] = recipient
+            if catchy_subject:
+                msg["Subject"] = catchy_subject
+            elif not job_id:
+                msg["Subject"] = f"{role_name} Role Application – Resume & Cover Letter"
+            else:
+                msg["Subject"] = f"{role_name} Application [{job_id}] – Resume & Cover Letter"
+            body = MIMEText(email_body, "html")
+            msg.attach(body)
+            if os.path.exists(resume_path):
+                with open(resume_path, "rb") as attachment:
+                    part = MIMEBase("application", "octet-stream")
+                    part.set_payload(attachment.read())
+                encoders.encode_base64(part)
+                part.add_header("Content-Disposition", f"attachment; filename={os.path.basename(resume_path)}")
+                msg.attach(part)
 
-        # Attach Cover Letter PDF
-        if os.path.exists(pdf_filename):
-            with open(pdf_filename, "rb") as attachment:
-                part = MIMEBase("application", "pdf")
-                part.set_payload(attachment.read())
-            encoders.encode_base64(part)
-            part.add_header("Content-Disposition", f"attachment; filename={os.path.basename(pdf_filename)}")
-            msg.attach(part)
+            # Attach Cover Letter PDF
+            if os.path.exists(pdf_filename):
+                with open(pdf_filename, "rb") as attachment:
+                    part = MIMEBase("application", "pdf")
+                    part.set_payload(attachment.read())
+                encoders.encode_base64(part)
+                part.add_header("Content-Disposition", f"attachment; filename={os.path.basename(pdf_filename)}")
+                msg.attach(part)
 
-        # Send email
-        smtp = smtplib.SMTP("smtp.gmail.com", 587)
-        smtp.starttls()
-        smtp.login(official_mail, pass_dict[official_mail])
-        smtp.sendmail(msg["From"], recipient, msg.as_string())
-        smtp.quit()
+            # Send email
+            smtp = smtplib.SMTP("smtp.gmail.com", 587)
+            smtp.starttls()
+            smtp.login(official_mail, pass_dict[official_mail])
+            smtp.sendmail(msg["From"], recipient, msg.as_string())
+            smtp.quit()
 
-        st.success(f"📧 Email sent successfully to {recruiter_name} with Resume + Cover Letter PDF!")
-        log_application(f"../{user}.xlsx", [
-            date.today().strftime("%Y-%m-%d"),
-            company_name,
-            role_name,
-            job_id,
-            recruiter_name,
-            recruiter_mail,
-            msg["Subject"],
-            why_company,
-            job_description,
-            "Sent"
-        ])
-        st.info(f"✅ Application logged in {user}.xlsx")
+            st.success(f"📧 Email sent successfully to {recruiter_name} with Resume + Cover Letter PDF!")
+            service = authenticate_google_sheets()
+            if not service:
+                return
+            SPREADSHEET_ID = "1bsD_uv_r1uNWn9JD85WWMpwTnxEmuP-Eqm-zlI2tp9U"
+            # log_application(f"../{user}.xlsx", [
+            #     date.today().strftime("%Y-%m-%d"),
+            #     company_name,
+            #     role_name,
+            #     job_id,
+            #     recruiter_name,
+            #     recruiter_mail,
+            #     msg["Subject"],
+            #     why_company,
+            #     job_description,
+            #     "Sent"
+            # ])
+            application_details = [date.today().strftime("%Y-%m-%d"),company_name,role_name,job_id,recruiter_name,recruiter_mail,msg["Subject"],why_company,job_description,"Sent"]
+            log_application(service, SPREADSHEET_ID, user, application_details)
+            st.info(f"✅ Application logged in {user}.xlsx")
+if __name__ == "__main__":
+    main()
