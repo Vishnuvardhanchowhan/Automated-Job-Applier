@@ -37,10 +37,8 @@ def authenticate_google_sheets():
         try:
             creds_json = base64.b64decode(creds_base64).decode('utf-8')
             creds_info = json.loads(creds_json)
-            creds = service_account.Credentials.from_service_account_info(
-                creds_info,
-                scopes=SCOPES
-            )
+            flow = InstalledAppFlow.from_client_config(creds_info, SCOPES)
+            creds = flow.run_local_server(port=0)
             print("Using service account credentials from environment variable")
         except Exception as e:
             print(f"Error decoding service account credentials: {e}")
