@@ -14,13 +14,11 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
 import os
 import base64
 import json
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
 from google.oauth2 import service_account
-from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from dotenv import load_dotenv
+import re
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 load_dotenv()
@@ -672,7 +670,10 @@ def main():
         # ---------------- EMAIL ----------------
         for recipient in recipient_list:
             email_username = recipient.split("@")[0]
-            recruiter_name = email_username.replace(".", " ").title()
+            name = email_username.replace(".", " ").replace("_", " ").replace("-", " ")
+            name = re.sub(r"\d+", "", name)
+            name = re.sub(r"\s+", " ", name).strip()
+            recruiter_name = name.title()
             email = EmailSender(
                 role=role,
                 recruiter=recruiter_name,
