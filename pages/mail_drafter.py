@@ -513,6 +513,38 @@ class EmailSender:
             self.highlights = "Node.js, Express, SQL, Authentication, API Development, Backend Scalability"
             self.cta = f"I’d be glad to explore how my backend expertise can strengthen {self.company_name}’s engineering team and infrastructure."
 
+        elif self.role == 'Software Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your profile on LinkedIn and wanted to reach out directly. 
+            Thank you for taking the time to consider my application.</p>
+
+            <p>As a <b>Software Developer</b>, I bring experience in building reliable, scalable, and user-focused applications. 
+            My work spans across <b>frontend, backend, and database systems</b>, allowing me to contribute to every layer of software development. 
+            Key contributions include:</p>
+
+            <ul>
+            <li>Developed end-to-end web applications using <b>React.js, Node.js, and TypeScript</b> with modular, reusable components.</li>
+            <li>Built RESTful APIs and optimized backend queries to support high-volume data workflows.</li>
+            <li>Implemented secure role-based access and designed scalable databases for performance-driven applications.</li>
+            </ul>
+
+            <p>My expertise in <b>full-stack development, software architecture, and performance optimization</b> 
+            equips me to deliver high-quality solutions, and I am eager to bring the same impact to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Sakshi Gawande</b><br>
+            Ph: 7057634407<br>
+            """
+
+            self.bullet1 = "Developed full-stack web applications with React.js, Node.js, and TypeScript, ensuring scalable and maintainable codebases."
+            self.bullet2 = "Designed and deployed RESTful APIs, focusing on backend performance, data workflows, and integration reliability."
+            self.bullet3 = "Implemented secure role-based access systems and optimized database queries to enhance application performance."
+            self.highlights = "Full-Stack Development, React.js, Node.js, TypeScript, REST APIs, Software Architecture"
+            self.cta = f"I’d be excited to discuss how my software development expertise can support {self.company_name} in building scalable and user-friendly applications."
+
         self.TEMPLATE = """{today}
                 Hiring Manager
                 {company}
@@ -541,6 +573,7 @@ class EmailSender:
                 <b>Sakshi Gawande</b>  
                 7057634407 | ✉ sakshigawandecse@gmail.com
                 """
+
 
         self.text = self.TEMPLATE.format(
             today=date.today().strftime("%B %d, %Y"),
@@ -578,7 +611,7 @@ def main():
     if user == 'vishnu':
         role = st.selectbox("Select the Role", ['Data Analyst', 'Data Scientist', 'Data Engineer', 'Data Governance Analyst', 'Product Analyst'])
     elif user == 'sakshi':
-        role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer'])
+        role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Developer'])
     role_name = st.text_input("Official Role Name (as per Job Posting)", placeholder="Type here...")
     job_id = st.text_input("Job ID / Reference Number", placeholder="Type here...")
 
