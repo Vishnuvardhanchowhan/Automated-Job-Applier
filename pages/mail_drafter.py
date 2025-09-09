@@ -221,7 +221,7 @@ class EmailSender:
 
             <p><b>Best regards,</b><br>
             <b>Vishnuvardhan Chowhan</b><br>
-            Ph: 7036363267<br>
+            Ph: <a href="tel:+917036363267">7036363267</a><br>
             <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
             """
 
@@ -301,6 +301,38 @@ class EmailSender:
             self.bullet3 = "Built robust SQL and Python scripts for data cleaning, validation, and transformation, showcasing my focus on improving pipeline reliability and ensuring data accuracy."
             self.highlights = "Python, SQL, Pandas, Big Data, ETL pipelines, workflow automation"
             self.cta = f"I’d be glad to discuss how my background in building reliable data workflows can strengthen {self.company_name}’s data infrastructure and support downstream analytics."
+        elif self.role == 'Machine Learning Engineer':
+            self.email_body = f"""
+                    <p>Hi {self.recruiter},</p>
+
+                    <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+                    I came across your contact information on LinkedIn and wanted to reach out directly. 
+                    Thank you for taking the time to consider my application.</p>
+
+                    <p>I hold a B.Tech in Electrical Engineering from <b>IIT Bombay (2024)</b> and currently work as a 
+                    <b>Data Analytics and Automation Specialist</b> at <b>Bintix</b>. My role bridges data engineering and applied AI, where I have:</p>
+
+                    <ul>
+                    <li>Designed and deployed <b>Python-based ETL pipelines</b> to clean, transform, and scale datasets for downstream analytics</li>
+                    <li>Developed the <b>Graahax AI agent</b>, an NLP-powered assistant that extracts KPIs and data cuts using prompt engineering and fuzzy matching</li>
+                    <li>Automated reporting workflows and integrated AI outputs into <b>Streamlit dashboards</b>, reducing manual effort by 80%</li>
+                    </ul>
+
+                    <p>At <b>Bintix</b>, I have successfully combined <b>AI integration</b> with <b>data pipeline engineering</b> 
+                    to deliver scalable, insight-driven solutions for global clients such as <b>L’Oréal, HUL, and ITC</b>. 
+                    I believe this unique blend of skills makes me a strong fit for <b>{self.company_name}</b>’s data initiatives.</p>
+
+                    <p><b>Best regards,</b><br>
+                    <b>Vishnuvardhan Chowhan</b><br>
+                    Ph: <a href="tel:+917036363267">7036363267</a><br>
+                    <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
+                    """
+
+            self.bullet1 = "Built the Graahax AI agent using LLMs, prompt engineering, and fuzzy matching to automate KPI extraction and generate structured insights from natural language queries."
+            self.bullet2 = "Designed and deployed Python-based ETL pipelines for scalable ingestion, cleaning, and transformation of large datasets, ensuring reliable downstream analytics."
+            self.bullet3 = "Automated reporting workflows and integrated AI-driven insights into Streamlit dashboards, reducing manual analyst workload by 80%."
+            self.highlights = "AI agents, Prompt Engineering, Python, SQL, ETL pipelines, workflow automation"
+            self.cta = f"I’d welcome the chance to discuss how my expertise in AI-powered agents and data engineering can strengthen {self.company_name}’s data science and analytics efforts."
         elif self.role == 'Data Governance Analyst':
             self.email_body = f"""
             <p>Hi {self.recruiter},</p>
@@ -442,7 +474,7 @@ class EmailSender:
 
             <p><b>Best regards,</b><br>
             <b>Sakshi Gawande</b><br>
-            Ph: 7057634407<br>
+            Ph: <a href="tel:+917057634407">7057634407</a><br>
             """
 
             self.bullet1 = "Built end-to-end web applications with React.js, Node.js, and TypeScript, gaining strong expertise in both frontend and backend."
@@ -473,7 +505,7 @@ class EmailSender:
 
             <p><b>Best regards,</b><br>
             <b>Sakshi Gawande</b><br>
-            Ph: 7057634407<br>
+            Ph: <a href="tel:+917057634407">7057634407</a><br>
             """
 
             self.bullet1 = "Designed and built interactive dashboards in React.js and TypeScript, focusing on responsive design and performance."
@@ -504,7 +536,7 @@ class EmailSender:
 
             <p><b>Best regards,</b><br>
             <b>Sakshi Gawande</b><br>
-            Ph: 7057634407<br>
+            Ph: <a href="tel:+917057634407">7057634407</a><br>
             """
 
             self.bullet1 = "Developed and optimized RESTful APIs with Node.js and Express for workflow automation and data management."
@@ -536,7 +568,7 @@ class EmailSender:
 
             <p><b>Best regards,</b><br>
             <b>Sakshi Gawande</b><br>
-            Ph: 7057634407<br>
+            Ph: <a href="tel:+917057634407">7057634407</a><br>
             """
 
             self.bullet1 = "Developed full-stack web applications with React.js, Node.js, and TypeScript, ensuring scalable and maintainable codebases."
