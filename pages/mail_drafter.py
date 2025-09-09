@@ -36,15 +36,9 @@ def authenticate_google_sheets():
         return None
 
     try:
-        # Decode Base64 to JSON
         creds_json = base64.b64decode(creds_base64).decode("utf-8")
         creds_info = json.loads(creds_json)
-
-        # Create service account credentials
         creds = service_account.Credentials.from_service_account_info(creds_info, scopes=SCOPES)
-        st.write("Successfully loaded service account credentials from environment variable.")
-
-        # Build the Sheets API service
         service = build("sheets", "v4", credentials=creds)
         return service
 
@@ -727,19 +721,7 @@ def main():
             if not service:
                 return
             SPREADSHEET_ID = "1bsD_uv_r1uNWn9JD85WWMpwTnxEmuP-Eqm-zlI2tp9U"
-            # log_application(f"../{user}.xlsx", [
-            #     date.today().strftime("%Y-%m-%d"),
-            #     company_name,
-            #     role_name,
-            #     job_id,
-            #     recruiter_name,
-            #     recruiter_mail,
-            #     msg["Subject"],
-            #     why_company,
-            #     job_description,
-            #     "Sent"
-            # ])
-            application_details = [date.today().strftime("%Y-%m-%d"),company_name,role_name,job_id,recruiter_name,recruiter_mail,msg["Subject"],why_company,job_description,"Sent"]
+            application_details = [date.today().strftime("%Y-%m-%d"),company_name,role_name,job_id,recruiter_name,recipient,msg["Subject"],why_company,job_description,"Sent"]
             log_application(service, SPREADSHEET_ID, user, application_details)
             st.info(f"✅ Application logged in {user}.xlsx")
 if __name__ == "__main__":
