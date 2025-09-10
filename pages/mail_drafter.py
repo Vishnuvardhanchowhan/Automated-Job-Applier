@@ -361,38 +361,38 @@ class EmailSender:
             self.cta = f"I’d be glad to discuss how my combined experience in analytics and engineering can help strengthen {self.company_name}’s data governance and reliability frameworks."
         elif self.role == 'Product Analyst':
             self.email_body = f"""
-            <p>Hi {self.recruiter},</p>
+                <p>Hi {self.recruiter},</p>
 
-            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
-            I came across your contact information on LinkedIn and wanted to reach out directly. 
-            Thank you for taking the time to consider my application.</p>
+                <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+                I came across your contact information on LinkedIn and wanted to reach out directly. 
+                Thank you for taking the time to consider my application.</p>
 
-            <p>I hold a B.Tech in Electrical Engineering from <b>IIT Bombay (2024)</b> and currently work 
-            as a <b>Data Analytics and Automation Specialist</b> at Bintix. 
-            In my role, I’ve worked closely with business and product teams to derive insights that drive 
-            decision-making. Some examples include:</p>
+                <p>I hold a B.Tech in Electrical Engineering from <b>IIT Bombay (2024)</b> and currently work 
+                as a <b>Data Analytics and Automation Specialist</b> at Bintix. 
+                In my role, I collaborate with product and business stakeholders to provide insights 
+                that guide decision-making and feature prioritization. Some examples include:</p>
 
-            <ul>
-            <li>Building <b>KPI dashboards</b> in Streamlit and Power BI to track <b>user engagement, funnel conversion, and retention</b>.</li>
-            <li>Automating SQL + Python workflows to deliver real-time insights on <b>product adoption and consumer behavior</b>.</li>
-            <li>Developing a <b>Product Innovations Tracker</b> to benchmark competitor launches and identify whitespace opportunities.</li>
-            </ul>
+                <ul>
+                <li>Building <b>KPI dashboards</b> in Streamlit and Power BI that track brand performance, consumer journeys, and adoption patterns.</li>
+                <li>Automating SQL + Python workflows to generate real-time reporting on <b>user behavior and market trends</b>, reducing manual effort by 80%.</li>
+                <li>Developing tools like an <b>Innovations Tracker</b> that benchmarked new product launches and highlighted whitespace opportunities for growth.</li>
+                </ul>
 
-            <p>With expertise in <b>SQL, Python, dashboarding, and experiment analysis</b>, I specialize in translating 
-            raw data into product insights that influence growth strategies. I’m excited to bring this impact-driven 
-            mindset to <b>{self.company_name}</b>.</p>
+                <p>With expertise in <b>SQL, Python, dashboarding, and analytics automation</b>, 
+                I specialize in transforming raw datasets into insights that inform <b>product strategy and growth decisions</b>. 
+                I’m excited to bring this impact-driven mindset to <b>{self.company_name}</b>.</p>
 
-            <p><b>Best regards,</b><br>
-            <b>Vishnuvardhan Chowhan</b><br>
-            Ph: <a href="tel:+917036363267">7036363267</a><br>
-            <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
-            """
+                <p><b>Best regards,</b><br>
+                <b>Vishnuvardhan Chowhan</b><br>
+                Ph: <a href="tel:+917036363267">7036363267</a><br>
+                <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
+                """
 
-            self.bullet1 = "Built KPI dashboards for funnels, retention, and adoption, enabling product teams to track performance and iterate faster."
-            self.bullet2 = "Automated SQL + Python pipelines for real-time consumer insights, reducing latency between data collection and decision-making."
-            self.bullet3 = "Developed an Innovations Tracker Dashboard that benchmarked competitor products, providing strategic inputs to product roadmaps."
-            self.highlights = "Product analytics, SQL, Python, dashboarding, funnel analysis, retention, consumer insights"
-            self.cta = f"I’d welcome the opportunity to show how my data-driven approach can support {self.company_name}’s product growth and decision-making."
+            self.bullet1 = "Designed KPI dashboards to monitor adoption patterns, consumer journeys, and performance metrics, giving product teams visibility into growth levers."
+            self.bullet2 = "Automated SQL + Python pipelines for reporting, enabling faster and more reliable insights into user and market behavior."
+            self.bullet3 = "Developed an Innovations Tracker Dashboard that benchmarked competitor launches and identified market whitespace, influencing product strategy."
+            self.highlights = "Product-focused analytics, SQL, Python, dashboarding, consumer journeys, growth insights"
+            self.cta = f"I’d love the opportunity to discuss how my analytics background can support {self.company_name}’s product growth and help shape data-informed decisions."
 
         elif self.role == 'Python Developer':
             self.email_body = f"""
