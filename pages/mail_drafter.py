@@ -217,9 +217,9 @@ class EmailSender:
             <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
             """
 
-            self.bullet1 = "I bring experience designing Streamlit-based KPI and Consumer Journey Dashboards, demonstrating my ability to translate complex data into actionable insights for business teams."
-            self.bullet2 = "I have automated SQL + Python reporting pipelines, showing my strength in reducing manual effort and improving data accuracy—skills I can apply to optimize any data process I take on."
-            self.bullet3 = "I developed an Innovations Tracker Dashboard to identify and benchmark product launches, highlighting my capability to build analytics tools that uncover market opportunities."
+            self.bullet1 = "Designed Streamlit KPI & Consumer Dashboards to deliver actionable insights."
+            self.bullet2 = "Automated SQL + Python pipelines, reducing manual effort and improving accuracy."
+            self.bullet3 = "Built an Innovations Tracker Dashboard to benchmark launches and spot opportunities."
             self.highlights = "Python, SQL, Power BI + Streamlit dashboarding, reporting automation"
             self.cta = f"I’d love the opportunity to discuss how I can contribute to {self.company_name}’s analytics team and help drive data-driven decision making."
         elif self.role == 'Data Scientist':
@@ -255,9 +255,9 @@ class EmailSender:
             <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
             """
 
-            self.bullet3 = "Completed an Advanced ML course, applying models such as regression, clustering, CNNs, RNNs, LSTMs, and GANs to real-world datasets—demonstrating strong foundations in both classical and deep learning."
-            self.bullet2 = "Designed an AI-powered chatbot agent that extracts KPIs and custom data cuts from natural language queries, showcasing my ability to integrate NLP with business analytics."
-            self.bullet1 = "Applied ML techniques for trend identification and product benchmarking, illustrating my capacity to convert raw data into actionable insights for strategic decision-making."
+            self.bullet1 = "Applied ML for trend analysis and product benchmarking, turning raw data into strategic insights."
+            self.bullet2 = "Built an AI-powered chatbot to extract KPIs from natural language, integrating NLP with analytics."
+            self.bullet3 = "Completed an Advanced ML course, applying regression, clustering, CNNs, RNNs, LSTMs, and GANs to real-world datasets."
             self.highlights = "AI/ML, Python, advanced analytics, natural language data agents"
             self.cta = f"I’d welcome the chance to explore how my machine learning expertise and real-world project experience can support {self.company_name}’s data science initiatives."
         elif self.role == 'Data Engineer':
@@ -288,9 +288,9 @@ class EmailSender:
             <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
             """
 
-            self.bullet1 = "Designed and deployed Python-based ETL pipelines to clean, transform, and standardize millions of rows of data, demonstrating my ability to manage and scale large datasets efficiently."
-            self.bullet2 = "Automated end-to-end reporting workflows, reducing manual effort by 80% and highlighting my strength in streamlining repetitive processes through automation."
-            self.bullet3 = "Built robust SQL and Python scripts for data cleaning, validation, and transformation, showcasing my focus on improving pipeline reliability and ensuring data accuracy."
+            self.bullet1 = "Scaled data management by designing Python ETL pipelines that cleaned and standardized millions of rows."
+            self.bullet2 = "Reduced manual effort by 80% through automation of end-to-end reporting workflows."
+            self.bullet3 = "Improved pipeline reliability and accuracy by building SQL + Python scripts for data cleaning and validation."
             self.highlights = "Python, SQL, Pandas, Big Data, ETL pipelines, workflow automation"
             self.cta = f"I’d be glad to discuss how my background in building reliable data workflows can strengthen {self.company_name}’s data infrastructure and support downstream analytics."
         elif self.role == 'Machine Learning Engineer':
@@ -320,9 +320,9 @@ class EmailSender:
                     <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
                     """
 
-            self.bullet1 = "Built the Graahax AI agent using LLMs, prompt engineering, and fuzzy matching to automate KPI extraction and generate structured insights from natural language queries."
-            self.bullet2 = "Designed and deployed Python-based ETL pipelines for scalable ingestion, cleaning, and transformation of large datasets, ensuring reliable downstream analytics."
-            self.bullet3 = "Automated reporting workflows and integrated AI-driven insights into Streamlit dashboards, reducing manual analyst workload by 80%."
+            self.bullet1 = "Built the Graahax AI agent using LLMs, prompt engineering, and fuzzy matching to turn natural language queries into structured KPI insights."
+            self.bullet2 = "Developed scalable Python ETL pipelines for ingestion, cleaning, and transformation of large datasets, ensuring accuracy and reliability."
+            self.bullet3 = "Automated reporting workflows and integrated AI-driven insights into Streamlit dashboards, cutting manual analyst effort by 80%."
             self.highlights = "AI agents, Prompt Engineering, Python, SQL, ETL pipelines, workflow automation"
             self.cta = f"I’d welcome the chance to discuss how my expertise in AI-powered agents and data engineering can strengthen {self.company_name}’s data science and analytics efforts."
         elif self.role == 'Data Governance Analyst':
@@ -354,9 +354,9 @@ class EmailSender:
             <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
             """
 
-            self.bullet1 = "Built automated pipelines that validate, transform, and reconcile data across multiple sources, ensuring governance and integrity in reporting."
-            self.bullet2 = "Created dashboards that integrate data lineage and business KPIs, improving both transparency and decision-making."
-            self.bullet3 = "Worked with global clients where ensuring data compliance, accuracy, and auditability was critical—strengthening my governance-first mindset."
+            self.bullet1 = "Built automated pipelines to validate, transform, and reconcile multi-source data, ensuring governance and reporting integrity."
+            self.bullet2 = "Developed dashboards combining data lineage with business KPIs, enhancing transparency and decision-making."
+            self.bullet3 = "Partnered with global clients on compliance-critical projects, strengthening my focus on accuracy, auditability, and governance."
             self.highlights = "Data governance, Python, SQL, ETL, pipeline validation, data lineage, compliance"
             self.cta = f"I’d be glad to discuss how my combined experience in analytics and engineering can help strengthen {self.company_name}’s data governance and reliability frameworks."
         elif self.role == 'Product Analyst':
@@ -388,9 +388,9 @@ class EmailSender:
                 <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
                 """
 
-            self.bullet1 = "Designed KPI dashboards to monitor adoption patterns, consumer journeys, and performance metrics, giving product teams visibility into growth levers."
-            self.bullet2 = "Automated SQL + Python pipelines for reporting, enabling faster and more reliable insights into user and market behavior."
-            self.bullet3 = "Developed an Innovations Tracker Dashboard that benchmarked competitor launches and identified market whitespace, influencing product strategy."
+            self.bullet1 = "Designed KPI dashboards to track adoption, journeys, and performance, giving product teams clarity on growth levers."
+            self.bullet2 = "Automated SQL + Python pipelines for reporting, enabling faster, more reliable insights on user and market behavior."
+            self.bullet3 = "Built an Innovations Tracker Dashboard to benchmark competitor launches and spot market whitespace, shaping product strategy."
             self.highlights = "Product-focused analytics, SQL, Python, dashboarding, consumer journeys, growth insights"
             self.cta = f"I’d love the opportunity to discuss how my analytics background can support {self.company_name}’s product growth and help shape data-informed decisions."
 
@@ -422,9 +422,9 @@ class EmailSender:
             <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
             """
 
-            self.bullet1 = "Developed Python-based ETL pipelines to clean, transform, and load large datasets, ensuring efficient and reliable data workflows."
-            self.bullet2 = "Designed and deployed automation scripts and APIs, streamlining reporting processes and system integrations."
-            self.bullet3 = "Built AI-powered agents and integrated them into dashboards using FastAPI and Streamlit, enabling intelligent and interactive analytics."
+            self.bullet1 = "Built Python ETL pipelines to clean, transform, and load large datasets for reliable workflows."
+            self.bullet2 = "Developed automation scripts and APIs, streamlining reporting and system integrations."
+            self.bullet3 = "Integrated AI-powered agents into dashboards with FastAPI and Streamlit for interactive analytics."
             self.highlights = "Python, APIs, ETL pipelines, FastAPI, workflow automation, data integration"
             self.cta = f"I’d welcome the chance to discuss how my Python expertise and automation background can strengthen {self.company_name}’s engineering efforts."
 
@@ -440,20 +440,18 @@ class EmailSender:
 
         Why {company}? {why_company}
 
-        What I bring:
-
+        My experience has equipped me with skills directly relevant to this role:  
+        
         • <b>{bullet1}</b>
-
         • <b>{bullet2}</b>
-
         • <b>{bullet3}</b>
 
         {cta}
 
-        <b>Best regards,</b>  
+        <b>Best regards,</b>
         <b>Vishnuvardhan Chowhan</b>  
-        7036363267 | ✉ vishnuvardhan.chowhan@gmail.com  
-        Portfolio: https://notion-sparkle-site.lovable.app/
+        7036363267 | ✉ vishnuvardhan.chowhan@gmail.com 
+        <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
         """
 
         self.text = self.TEMPLATE.format(
@@ -501,6 +499,7 @@ class EmailSender:
             <p><b>Best regards,</b><br>
             <b>Sakshi Gawande</b><br>
             Ph: <a href="tel:+917057634407">7057634407</a><br>
+            <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a></p>
             """
 
             self.bullet1 = "Built end-to-end web applications with React.js, Node.js, and TypeScript, gaining strong expertise in both frontend and backend."
@@ -532,6 +531,7 @@ class EmailSender:
             <p><b>Best regards,</b><br>
             <b>Sakshi Gawande</b><br>
             Ph: <a href="tel:+917057634407">7057634407</a><br>
+            <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a></p>
             """
 
             self.bullet1 = "Designed and built interactive dashboards in React.js and TypeScript, focusing on responsive design and performance."
@@ -563,6 +563,7 @@ class EmailSender:
             <p><b>Best regards,</b><br>
             <b>Sakshi Gawande</b><br>
             Ph: <a href="tel:+917057634407">7057634407</a><br>
+            <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a></p>
             """
 
             self.bullet1 = "Developed and optimized RESTful APIs with Node.js and Express for workflow automation and data management."
@@ -595,6 +596,7 @@ class EmailSender:
             <p><b>Best regards,</b><br>
             <b>Sakshi Gawande</b><br>
             Ph: <a href="tel:+917057634407">7057634407</a><br>
+            <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a></p>
             """
 
             self.bullet1 = "Developed full-stack web applications with React.js, Node.js, and TypeScript, ensuring scalable and maintainable codebases."
@@ -617,12 +619,10 @@ class EmailSender:
 
                 Why {company}? {why_company}
 
-                What I bring:
-
+                My experience has equipped me with skills directly relevant to this role:  
+                
                 • <b>{bullet1}</b>
-
                 • <b>{bullet2}</b>
-
                 • <b>{bullet3}</b>
 
                 {cta}
@@ -630,6 +630,7 @@ class EmailSender:
                 <b>Best regards,</b>  
                 <b>Sakshi Gawande</b>  
                 7057634407 | ✉ sakshigawandecse@gmail.com
+                <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a></p>
                 """
 
 
