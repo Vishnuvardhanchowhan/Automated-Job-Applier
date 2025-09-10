@@ -667,7 +667,7 @@ def main():
     st.header("1️⃣ Role & Job Details")
 
     if user == 'vishnu':
-        role = st.selectbox("Select the Role", ['Data Analyst', 'Data Scientist', 'Data Engineer','Machine Learning Engineer', 'Data Governance Analyst', 'Product Analyst'])
+        role = st.selectbox("Select the Role", ['Data Analyst', 'Data Scientist', 'Data Engineer','Machine Learning Engineer', 'Data Governance Analyst', 'Product Analyst', 'Python Developer'])
     elif user == 'sakshi':
         role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Developer'])
     role_name = st.text_input("Official Role Name (as per Job Posting)", placeholder="Type here...")
