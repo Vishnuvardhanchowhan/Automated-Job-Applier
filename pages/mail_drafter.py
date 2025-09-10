@@ -394,6 +394,40 @@ class EmailSender:
             self.highlights = "Product analytics, SQL, Python, dashboarding, funnel analysis, retention, consumer insights"
             self.cta = f"I’d welcome the opportunity to show how my data-driven approach can support {self.company_name}’s product growth and decision-making."
 
+        elif self.role == 'Python Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your contact information on LinkedIn and wanted to reach out directly. 
+            Thank you for taking the time to consider my application.</p>
+
+            <p>I hold a B.Tech in Electrical Engineering from <b>IIT Bombay (2024)</b> and currently work 
+            as a <b>Data Analytics and Automation Specialist</b> at Bintix. 
+            My work revolves around designing scalable Python solutions and automations. Some highlights include:</p>
+
+            <ul>
+            <li>Developing <b>Python-based ETL pipelines</b> for ingestion, cleaning, and transformation of millions of rows of data.</li>
+            <li>Building and deploying <b>automation scripts and APIs</b> to streamline reporting and integration with client systems.</li>
+            <li>Implementing <b>AI-powered agents</b> and integrating them into dashboards using FastAPI and Streamlit.</li>
+            </ul>
+
+            <p>My expertise in <b>Python, SQL, APIs, and workflow automation</b> has enabled me to 
+            deliver production-ready, scalable solutions for global clients such as <b>L’Oréal, HUL, and ITC</b>. 
+            I’m excited about the opportunity to bring the same impact to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Vishnuvardhan Chowhan</b><br>
+            Ph: <a href="tel:+917036363267">7036363267</a><br>
+            <a href="https://notion-sparkle-site.lovable.app/">Portfolio</a></p>
+            """
+
+            self.bullet1 = "Developed Python-based ETL pipelines to clean, transform, and load large datasets, ensuring efficient and reliable data workflows."
+            self.bullet2 = "Designed and deployed automation scripts and APIs, streamlining reporting processes and system integrations."
+            self.bullet3 = "Built AI-powered agents and integrated them into dashboards using FastAPI and Streamlit, enabling intelligent and interactive analytics."
+            self.highlights = "Python, APIs, ETL pipelines, FastAPI, workflow automation, data integration"
+            self.cta = f"I’d welcome the chance to discuss how my Python expertise and automation background can strengthen {self.company_name}’s engineering efforts."
+
         self.TEMPLATE = """{today}
         Hiring Manager
         {company}
