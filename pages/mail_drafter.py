@@ -677,6 +677,24 @@ def main():
     st.header("2️⃣ Recruiter & Company Info")
     recruiter_mail = st.text_input("Recruiter's Email(s)", placeholder="e.g., adarsh@company.com, rina@company.com")
     recipient_list = [email.strip() for email in recruiter_mail.split(",") if email.strip()]
+    name_sel = st.radio(
+        "Do you want to write custom names for sending recruiters? as names extracted from email might be in shortform or not actually represent his/her name! (Optional)",
+        ["no", "yes"], horizontal=True)
+    if name_sel == 'yes':
+        recipient_names = st.text_input("Recruiter's Name(s)", placeholder="e.g., Adarsh Chowhan, Rina Gawande")
+        recipient_name_list = [name.strip() for name in recipient_names.split(",") if name.strip()]
+    else:
+        recipient_name_list = []
+        for recipient in recipient_list:
+            email_username = recipient.split("@")[0]
+            name = email_username.replace(".", " ").replace("_", " ").replace("-", " ")
+            name = re.sub(r"\d+", "", name)
+            name = re.sub(r"\s+", " ", name).strip()
+            recipient_name_list.append(name)
+    if len(recipient_name_list)!=len(recipient_list):
+        st.warning("No. of Email Ids and No. of Names doesn't match please cross check!")
+        st.stop()
+
     company_name = st.text_input("Company Name", placeholder="Type here...")
 
     st.header("3️⃣ Motivation & Customization")
@@ -703,11 +721,8 @@ def main():
         else:
             st.success("✅ All fields are filled. Ready to send!")
         # ---------------- EMAIL ----------------
-        for recipient in recipient_list:
-            email_username = recipient.split("@")[0]
-            name = email_username.replace(".", " ").replace("_", " ").replace("-", " ")
-            name = re.sub(r"\d+", "", name)
-            name = re.sub(r"\s+", " ", name).strip()
+        for indx, recipient in enumerate(recipient_list):
+            name = recipient_name_list[indx]
             recruiter_name = name.title()
             email = EmailSender(
                 role=role,
