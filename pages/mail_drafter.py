@@ -10,7 +10,10 @@ import streamlit as st
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import LETTER
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
+from reportlab.platypus import (
+    SimpleDocTemplate, Paragraph, Spacer, HRFlowable,
+    ListFlowable
+)
 import os
 import base64
 import json
@@ -443,7 +446,9 @@ class EmailSender:
         My experience has equipped me with skills directly relevant to this role:  
         
         • <b>{bullet1}</b>
+        
         • <b>{bullet2}</b>
+        
         • <b>{bullet3}</b>
 
         {cta}
