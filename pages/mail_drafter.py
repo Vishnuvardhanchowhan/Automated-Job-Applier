@@ -627,7 +627,9 @@ class EmailSender:
                 My experience has equipped me with skills directly relevant to this role:  
                 
                 • <b>{bullet1}</b>
+                
                 • <b>{bullet2}</b>
+                
                 • <b>{bullet3}</b>
 
                 {cta}
