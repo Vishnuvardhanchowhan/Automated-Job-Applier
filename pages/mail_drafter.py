@@ -703,8 +703,8 @@ def main():
             name = re.sub(r"\s+", " ", name).strip()
             recipient_name_list.append(name)
     if len(recipient_name_list)!=len(recipient_list):
-        st.warning("No. of Email Ids and No. of Names doesn't match please cross check!")
-        st.stop()
+        st.warning("No. of Email Ids and No. of Names doesn't match please cross check using default 'Hiring Manager' as Names!")
+        recipient_name_list = ['Hiring Manager']*len(recipient_list)
 
     company_name = st.text_input("Company Name", placeholder="Type here...")
 
