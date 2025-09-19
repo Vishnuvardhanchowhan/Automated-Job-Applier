@@ -441,7 +441,9 @@ class EmailSender:
 
         I specialize in {highlights}, and I’ve used these skills to deliver measurable impact.
 
-        Why {company}? {why_company}
+        Why {company}?
+        
+        {why_company}
 
         My experience has equipped me with skills directly relevant to this role:  
         
