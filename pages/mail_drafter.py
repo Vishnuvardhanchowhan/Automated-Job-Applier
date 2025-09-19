@@ -684,13 +684,15 @@ def main():
     job_id = st.text_input("Job ID / Reference Number", placeholder="Type here...")
 
     st.header("2️⃣ Recruiter & Company Info")
-    recruiter_mail = st.text_input("Recruiter's Email(s)", placeholder="e.g., adarsh@company.com, rina@company.com")
+    recruiter_mail = st.text_area("Recruiter's Email(s)", placeholder="e.g., adarsh@company.com, rina@company.com",
+        height=150)
     recipient_list = [email.strip() for email in recruiter_mail.split(",") if email.strip()]
     name_sel = st.radio(
         "Do you want to write custom names for sending recruiters? as names extracted from email might be in shortform or not actually represent his/her name! (Optional)",
         ["no", "yes"], horizontal=True)
     if name_sel == 'yes':
-        recipient_names = st.text_input("Recruiter's Name(s)", placeholder="e.g., Adarsh Chowhan, Rina Gawande")
+        recipient_names = st.text_area("Recruiter's Name(s)", placeholder="e.g., Adarsh Chowhan, Rina Gawande",
+        height=150)
         recipient_name_list = [name.strip() for name in recipient_names.split(",") if name.strip()]
     else:
         recipient_name_list = []
@@ -711,13 +713,15 @@ def main():
         "Write catchy subject to attract recruiters ✨",
         placeholder="Write witty subject..."
     )
-    why_company = st.text_input(
+    why_company = st.text_area(
         "Why do you want to join this company?",
-        placeholder="Write 1–2 lines about your motivation..."
+        placeholder="Write 2–3 short paragraphs about your motivation...",
+        height=150  # you can adjust this value
     )
-    job_description = st.text_input(
+    job_description = st.text_area(
         "Job description link for future follow ups?",
-        placeholder="Job description link..."
+        placeholder="Job description link...",
+        height=100
     )
 
     st.markdown("---")
