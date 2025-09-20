@@ -685,7 +685,6 @@ def main():
         st.warning("Role isn't specified in text box taking selected dropdown role name!")
         role_name = role
     job_id = st.text_input("Job ID / Reference Number", placeholder="Type here...")
-
     st.header("2️⃣ Recruiter & Company Info")
     recruiter_mail = st.text_area("Recruiter's Email(s)", placeholder="e.g., adarsh@company.com, rina@company.com",
         height=150)
