@@ -682,6 +682,7 @@ def main():
         role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Developer'])
     role_name = st.text_input("Official Role Name (as per Job Posting)", placeholder="Type here...")
     if not role_name:
+        st.warning("Role isn't specified in text box taking selected dropdown role name!")
         role_name = role
     job_id = st.text_input("Job ID / Reference Number", placeholder="Type here...")
 
