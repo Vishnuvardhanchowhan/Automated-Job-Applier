@@ -692,22 +692,33 @@ def main():
     name_sel = st.radio(
         "Do you want to write custom names for sending recruiters? as names extracted from email might be in shortform or not actually represent his/her name! (Optional)",
         ["no", "yes"], horizontal=True)
+    recipient_name_list = []
     if name_sel == 'yes':
-        recipient_names = st.text_area("Recruiter's Name(s)", placeholder="e.g., Adarsh Chowhan, Rina Gawande",
-        height=150)
-        recipient_name_list = [name.strip() for name in recipient_names.split(",") if name.strip()]
+        cols_list = st.columns(len(recipient_list))
+        st.warning("if name isn't placed in the box below for respective mail ids default name will be considered that will be extracted from name@company.com!")
+        count = 0
+        for col, recipient in zip(cols_list, recipient_list):
+            with col:
+                st.write(f"Name of mail id : {recipient}")
+                name = st.text_input("Enter recipient name", key = f"nmae_{col}")
+                if name.strip() == "":
+                    count += 1
+                    email_username = recipient.split("@")[0]
+                    name = email_username.replace(".", " ").replace("_", " ").replace("-", " ")
+                    name = re.sub(r"\d+", "", name)
+                    name = re.sub(r"\s+", " ", name).strip()
+                recipient_name_list.append(name)
+        if count == len(recipient_list):
+            st.warning(
+                "All the fields are blank for names please cross check option selections putting default 'Hiring Manager' as Names fro all mail ids!")
+            recipient_name_list = ['Hiring Manager']*len(recipient_list)
     else:
-        recipient_name_list = []
         for recipient in recipient_list:
             email_username = recipient.split("@")[0]
             name = email_username.replace(".", " ").replace("_", " ").replace("-", " ")
             name = re.sub(r"\d+", "", name)
             name = re.sub(r"\s+", " ", name).strip()
             recipient_name_list.append(name)
-    if len(recipient_name_list)!=len(recipient_list):
-        st.warning("No. of Email Ids and No. of Names doesn't match please cross check using default 'Hiring Manager' as Names!")
-        recipient_name_list = ['Hiring Manager']*len(recipient_list)
-
     company_name = st.text_input("Company Name", placeholder="Type here...")
 
     st.header("3️⃣ Motivation & Customization")
