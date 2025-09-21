@@ -686,32 +686,49 @@ def main():
         role_name = role
     job_id = st.text_input("Job ID / Reference Number", placeholder="Type here...")
     st.header("2️⃣ Recruiter & Company Info")
-    recruiter_mail = st.text_area("Recruiter's Email(s)", placeholder="e.g., adarsh@company.com, rina@company.com",
-        height=150)
+    recruiter_mail = st.text_area(
+        "Recruiter's Email(s)",
+        placeholder="e.g., adarsh@company.com, rina@company.com",
+        height=150
+    )
+
     recipient_list = [email.strip() for email in recruiter_mail.split(",") if email.strip()]
+
     name_sel = st.radio(
-        "Do you want to write custom names for sending recruiters? as names extracted from email might be in shortform or not actually represent his/her name! (Optional)",
-        ["no", "yes"], horizontal=True)
+        "Do you want to write custom names for sending recruiters? (Optional)",
+        ["no", "yes"],
+        horizontal=True
+    )
+    if "names_dict" not in st.session_state:
+        st.session_state["names_dict"] = {}
+
     recipient_name_list = []
-    if name_sel == 'yes':
+
+    if name_sel == "yes":
         cols_list = st.columns(len(recipient_list))
-        st.warning("if name isn't placed in the box below for respective mail ids default name will be considered that will be extracted from name@company.com!")
-        count = 0
-        for col, recipient in zip(cols_list, recipient_list):
+        st.warning("If name isn't placed below, default name will be extracted from email!")
+
+        for i, (col, recipient) in enumerate(zip(cols_list, recipient_list)):
             with col:
-                st.write(f"Name of mail id : {recipient}")
-                name = st.text_input("Enter recipient name", key = f"nmae_{col}")
+                st.write(f"Name for email: {recipient}")
+
+                # Use existing session_state value as default
+                default_name = st.session_state["names_dict"].get(recipient, "")
+                name = st.text_input(
+                    "Enter recipient name",
+                    value=default_name,
+                    key=f"name_{i}"
+                )
+
                 if name.strip() == "":
-                    count += 1
+                    # Auto-generate name from email
                     email_username = recipient.split("@")[0]
                     name = email_username.replace(".", " ").replace("_", " ").replace("-", " ")
                     name = re.sub(r"\d+", "", name)
                     name = re.sub(r"\s+", " ", name).strip()
+                st.session_state["names_dict"][recipient] = name
                 recipient_name_list.append(name)
-        if count == len(recipient_list):
-            st.warning(
-                "All the fields are blank for names please cross check option selections putting default 'Hiring Manager' as Names fro all mail ids!")
-            recipient_name_list = ['Hiring Manager']*len(recipient_list)
+
     else:
         for recipient in recipient_list:
             email_username = recipient.split("@")[0]
@@ -720,7 +737,6 @@ def main():
             name = re.sub(r"\s+", " ", name).strip()
             recipient_name_list.append(name)
     company_name = st.text_input("Company Name", placeholder="Type here...")
-
     st.header("3️⃣ Motivation & Customization")
     catchy_subject = st.text_input(
         "Write catchy subject to attract recruiters ✨",
