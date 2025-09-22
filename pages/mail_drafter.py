@@ -757,6 +757,21 @@ def main():
     st.caption("⚠️ Make sure all fields are filled before generating the email.")
 
     if st.button("Send"):
+        has_error = False
+        if not recruiter_mail:
+            st.warning("⚠️ Please enter at least one recruiter's email.")
+            has_error = True
+        if not company_name:
+            st.warning("⚠️ Please enter the company name.")
+            has_error = True
+        if not why_company:
+            st.warning("⚠️ Please provide your reason for joining the company.")
+            has_error = True
+        if not job_description:
+            st.warning("⚠️ Please paste the job description.")
+            has_error = True
+        if has_error:
+            st.stop()
         pass_dict = {'sakshigawandecse@gmail.com':"illr ufri rqeo cwia", "vishnuvardhan.chowhan@gmail.com": "dipi cqsq sgvz ukof"}
         if not recruiter_mail or not company_name or not role_name:
             st.warning("⚠️ Please fill in all the fields before sending.")
