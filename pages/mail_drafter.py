@@ -664,6 +664,522 @@ class EmailSender:
         self.resume_path = r"Sakshi_Gawande_Resume.pdf"
         return self.email_body, self.pdf_filename, self.official_name, self.resume_path
 
+    def sai(self):
+        if self.role == 'Full Stack Engineer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your profile on LinkedIn and wanted to reach out directly. 
+            Thank you for taking the time to consider my application.</p>
+
+            <p>I hold a B.Tech in <b>Computer Science and Engineering (2024)</b> from <b>Adikavi Nannaya University</b> 
+            and currently work as a <b>Full Stack Engineer & App Developer</b> at <b>Bintix (T-Hub, Hyderabad)</b>. 
+            Over the past 1.5 years, I have:</p>
+
+            <ul>
+            <li>Developed and deployed Android & iOS apps with AI-based features such as image blur detection, Bluetooth weighing, and real-time barcode validation—used across 7 metro cities.</li>
+            <li>Built dynamic web applications with <b>React</b> and <b>Material UI</b>, integrating <b>Highcharts</b> for interactive data visualizations and analytics dashboards.</li>
+            <li>Developed and deployed scalable web and backend applications — including a Node.js REST API project, a responsive restaurant website, and a serverless Toy Store app using <b>Google Cloud (Cloud Run, Firebase, Vertex AI)</b> for intelligent, cloud-native product experiences.</li>
+            </ul>
+
+            <p>My expertise in <b>React Native, React, Node.js, and Python</b> allows me to develop full-stack solutions 
+            that are both high-performing and user-centric. I’m excited about the opportunity to bring 
+            this experience to <b>{self.company_name}</b> and contribute to impactful products.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Polloju Sai Kiran</b><br>
+            Ph: 7093263001<br>
+            ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
+            <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            Hyderabad, Telangana</p>
+            """
+
+            self.bullet1 = "I’ve built and deployed production-ready mobile applications integrating AI-based features, demonstrating my ability to combine innovation with performance optimization."
+            self.bullet2 = "I developed complex React + Material UI web apps with Highcharts visualizations, showcasing my strength in designing engaging, data-driven user experiences."
+            self.bullet3 = "I developed scalable web and backend projects—including a Node.js REST API (TwitterClone), a responsive restaurant website, and a serverless Toy Store App using Google Cloud (Cloud Run, Firebase, Vertex AI)—demonstrating my expertise in building intelligent, cloud-native, and open-source integrated solutions."
+            self.highlights = "React Native, React, Node.js, TypeScript, SQLite, Material UI, Python"
+            self.cta = f"I’d love the opportunity to discuss how I can contribute to {self.company_name}’s engineering team and help build scalable, impactful digital products."
+
+        elif self.role == 'Android Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your profile on LinkedIn and wanted to reach out directly.</p>
+
+            <p>I hold a B.Tech in <b>Computer Science and Engineering (2024)</b> from <b>Adikavi Nannaya University</b> 
+            and currently work as an <b>Android Developer</b> at <b>Bintix (T-Hub, Hyderabad)</b>. 
+            Over the past 1.5 years, I have:</p>
+
+            <ul>
+            <li>Built and deployed Android applications with AI features like image blur detection, Bluetooth weighing, and real-time barcode validation.</li>
+            <li>Worked with <b>Kotlin</b> and <b>Jetpack Compose</b> to deliver responsive and performant mobile apps.</li>
+            <li>Integrated apps with backend services using <b>Firebase</b> and <b>REST APIs</b> for seamless cloud-native experiences.</li>
+            </ul>
+
+            <p>My expertise in <b>Kotlin, Java, Android SDK, and Firebase</b> enables me to create high-performing, user-centric applications. 
+            I’m excited about the opportunity to bring this experience to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Polloju Sai Kiran</b><br>
+            Ph: 7093263001<br>
+            ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
+            <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            Hyderabad, Telangana</p>
+            """
+
+            self.bullet1 = "Built and deployed Android applications integrating AI features, ensuring high performance and user engagement."
+            self.bullet2 = "Proficient in Kotlin, Java, and Jetpack Compose for creating dynamic, responsive applications."
+            self.bullet3 = "Integrated apps with Firebase and REST APIs for scalable cloud-native experiences."
+            self.highlights = "Kotlin, Java, Android SDK, Firebase, Jetpack Compose, REST APIs"
+            self.cta = f"I’d love to discuss how I can contribute to {self.company_name}’s Android development team and deliver impactful mobile solutions."
+
+        elif self.role == 'Frontend Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’m interested in the <b>{self.role_name}</b> role at <b>{self.company_name}</b> and wanted to reach out directly.</p>
+
+            <p>I hold a B.Tech in <b>Computer Science and Engineering (2024)</b> from <b>Adikavi Nannaya University</b> 
+            and currently work as a <b>Frontend Developer</b> at <b>Bintix (T-Hub, Hyderabad)</b>. 
+            Over the past 1.5 years, I have:</p>
+
+            <ul>
+            <li>Developed responsive web applications using <b>React</b> and <b>Material UI</b>.</li>
+            <li>Integrated <b>Highcharts</b> and other visualization tools for interactive dashboards.</li>
+            <li>Optimized UI performance, accessibility, and cross-browser compatibility for multiple client projects.</li>
+            </ul>
+
+            <p>My expertise in <b>React, JavaScript, Material UI</b> allows me to build dynamic, user-focused interfaces. 
+            I’m eager to contribute to <b>{self.company_name}</b>’s frontend development efforts.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Polloju Sai Kiran</b><br>
+            Ph: 7093263001<br>
+            ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
+            <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            Hyderabad, Telangana</p>
+            """
+
+            self.bullet1 = "Developed responsive and dynamic web applications with React and Material UI."
+            self.bullet2 = "Integrated interactive charts and dashboards using Highcharts for better data insights."
+            self.bullet3 = "Optimized frontend performance, accessibility, and cross-browser compatibility."
+            self.highlights = "React, JavaScript, Material UI, HTML, CSS, Highcharts"
+            self.cta = f"I’d love to discuss how I can contribute to {self.company_name}’s frontend development team and build intuitive user interfaces."
+
+        elif self.role == 'Mobile Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’m interested in the <b>{self.role_name}</b> role at <b>{self.company_name}</b> and wanted to reach out directly.</p>
+
+            <p>I hold a B.Tech in <b>Computer Science and Engineering (2024)</b> from <b>Adikavi Nannaya University</b> 
+            and currently work as a <b>Mobile Developer</b> at <b>Bintix (T-Hub, Hyderabad)</b>. 
+            Over the past 1.5 years, I have:</p>
+
+            <ul>
+            <li>Built and deployed Android & iOS applications with AI-powered features such as image blur detection and real-time barcode validation.</li>
+            <li>Worked with <b>React Native</b>, <b>Flutter</b>, and native SDKs to create responsive mobile apps.</li>
+            <li>Integrated mobile apps with cloud services like <b>Firebase</b> and <b>Google Cloud</b> for scalable deployments.</li>
+            </ul>
+
+            <p>My expertise in <b>React Native, Flutter, Android, iOS, and Firebase</b> allows me to develop efficient and high-quality mobile solutions. 
+            I’m excited to bring this experience to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Polloju Sai Kiran</b><br>
+            Ph: 7093263001<br>
+            ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
+            <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            Hyderabad, Telangana</p>
+            """
+
+            self.bullet1 = "Built and deployed mobile applications for Android and iOS integrating AI features."
+            self.bullet2 = "Proficient in React Native, Flutter, and native mobile SDKs for creating responsive apps."
+            self.bullet3 = "Integrated cloud services like Firebase and Google Cloud for scalable mobile deployments."
+            self.highlights = "React Native, Flutter, Android SDK, iOS SDK, Firebase, Google Cloud"
+            self.cta = f"I’d love to discuss how I can contribute to {self.company_name}’s mobile development team and deliver impactful apps."
+
+        elif self.role == 'Software Developer' or self.role == 'Software Engineer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your profile on LinkedIn and wanted to reach out directly.</p>
+
+            <p>I hold a B.Tech in <b>Computer Science and Engineering (2024)</b> from <b>Adikavi Nannaya University</b> 
+            and currently work as a <b>Software Developer</b> at <b>Bintix (T-Hub, Hyderabad)</b>. 
+            Over the past 1.5 years, I have:</p>
+
+            <ul>
+            <li>Developed and deployed full-stack applications with <b>React</b>, <b>Node.js</b>, and <b>Python</b>.</li>
+            <li>Worked on scalable backend services and REST APIs for multiple client projects.</li>
+            <li>Created automated solutions and cloud-integrated applications using <b>Google Cloud</b> and <b>Firebase</b>.</li>
+            </ul>
+
+            <p>My expertise in <b>React, Node.js, Python, and cloud technologies</b> enables me to build efficient, scalable software solutions. 
+            I’m eager to contribute to <b>{self.company_name}</b>’s engineering initiatives.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Polloju Sai Kiran</b><br>
+            Ph: 7093263001<br>
+            ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
+            <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            Hyderabad, Telangana</p>
+            """
+
+            self.bullet1 = "Built full-stack applications with React, Node.js, and Python, demonstrating end-to-end development capabilities."
+            self.bullet2 = "Developed scalable backend services and REST APIs for multiple projects."
+            self.bullet3 = "Integrated cloud solutions using Google Cloud and Firebase for efficient deployments."
+            self.highlights = "React, Node.js, Python, Firebase, Google Cloud, REST APIs"
+            self.cta = f"I’d love the opportunity to discuss how I can contribute to {self.company_name}’s software engineering team and deliver scalable solutions."
+
+        self.TEMPLATE = """{today}
+                Hiring Manager
+                {company}
+
+                Dear {hiring_manager},
+
+                I’m enthusiastic about applying for the <b>{role}</b> role at <b>{company}</b>, where I see a strong alignment between my full-stack development experience and your team’s product vision.
+
+                I specialize in {highlights}, and I’ve used these skills to deliver robust applications and data-driven interfaces.
+
+                Why {company}? {why_company}
+
+                What I bring:
+
+                • <b>{bullet1}</b>
+
+                • <b>{bullet2}</b>
+
+                • <b>{bullet3}</b>
+
+                {cta}
+
+                <b>Best regards,</b>  
+                <b>Polloju Sai Kiran</b>  
+                7093263001 | ✉ pollojukiran06@gmail.com  
+                Hyderabad, Telangana"""
+        self.text = self.TEMPLATE.format(
+            today=date.today().strftime("%B %d, %Y"),
+            hiring_manager=self.recruiter or "Hiring Manager",
+            role=self.role_name,
+            company=self.company_name,
+            highlights=self.highlights,
+            why_company=self.why_company,
+            bullet1=self.bullet1,
+            bullet2=self.bullet2,
+            bullet3=self.bullet3,
+            cta=self.cta
+        )
+        self.text = dedent(self.text)
+        self.name = 'Polloju Sai Kiran'
+        self.official_role = 'Full Stack Engineer | Hyderabad, India'
+        self.pdf_filename = generate_cover_letter_pdf(self.text, self.name.capitalize(), self.official_role,
+                                                      f"{st.session_state.get('username')} Cover Letter.pdf")
+        self.official_name = "pollojukiran06@gmail.com"
+        self.resume_path = r"polloju_SaiKiran_Resume.pdf"
+        return self.email_body, self.pdf_filename, self.official_name, self.resume_path
+
+    def harsha(self):
+        if self.role == 'Data Analyst':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your contact information on LinkedIn and wanted to reach out directly. 
+            Thank you for taking the time to consider my application.</p>
+
+            <p>I hold an <b>MBA in Healthcare and Hospital Management</b> from <b>Hyderabad Central University</b> 
+            and a <b>B.Sc. in Life Sciences</b> from the University of Delhi. 
+            Over the past 3+ years, I’ve built expertise in market research, data analysis, and project management, working across sectors like FMCG, healthcare, and public policy. 
+            I currently work as a <b>Data Analyst at Bintix Waste Research</b>, where I support consumer insights and decision-making for leading clients.</p>
+
+            <ul>
+            <li>Analyzed consumer and market data in the FMCG domain to uncover actionable insights for strategic marketing decisions.</li>
+            <li>Designed and delivered teaser and performance reports that improved engagement and informed business strategies.</li>
+            <li>Led end-to-end project delivery in previous roles — managing research, financial analysis, and stakeholder communication to drive impact.</li>
+            </ul>
+
+            <p>My expertise in <b>Advanced Excel, Power BI, MySQL (Basics)</b>, and <b>data-driven storytelling</b> enables me to transform complex data into clear insights — 
+            a skill I’m excited to bring to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Harsha Jha</b><br>
+            Ph: <a href="tel:+917836907197">7836907197</a><br>
+            """
+
+            self.bullet1 = "I bring hands-on experience in analyzing consumer and market data to generate actionable insights for strategic decision-making."
+            self.bullet2 = "I have a strong foundation in reporting and dashboarding using Advanced Excel and Power BI, enabling data-driven storytelling for business stakeholders."
+            self.bullet3 = "With experience in market research, financial analysis, and project delivery, I’m adept at managing end-to-end data initiatives that align with business goals."
+            self.highlights = "Advanced Excel, Power BI, MySQL (Basics), Reporting & Analysis, Market Research"
+            self.cta = f"I’d love the opportunity to discuss how my analytical skills and research experience can contribute to {self.company_name}’s data analytics team."
+        elif self.role == 'Market Researcher':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your contact information on LinkedIn and wanted to reach out directly. 
+            Thank you for taking the time to consider my application.</p>
+
+            <p>I hold an <b>MBA in Healthcare and Hospital Management</b> from <b>Hyderabad Central University</b> 
+            and a <b>B.Sc. in Life Sciences</b> from the University of Delhi. 
+            Over the past 3+ years, I’ve developed expertise in consumer behavior, market research methodologies, and data-driven insights across FMCG, healthcare, and public policy sectors. 
+            I currently work as a <b>Market Researcher at Bintix Waste Research</b>, helping clients make strategic decisions through research and insights.</p>
+
+            <ul>
+            <li>Conducted qualitative and quantitative research to analyze market trends, consumer behavior, and competitive landscapes.</li>
+            <li>Developed reports and presentations that translated complex data into actionable business insights.</li>
+            <li>Collaborated with cross-functional teams to deliver research projects on time and ensure stakeholder satisfaction.</li>
+            </ul>
+
+            <p>My expertise in <b>survey design, data collection, SPSS, Excel</b>, and <b>market analysis</b> enables me to provide precise and actionable insights — 
+            a skill I’m eager to bring to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Harsha Jha</b><br>
+            Ph: <a href="tel:+917836907197">7836907197</a><br>
+            """
+
+            self.bullet1 = "I have hands-on experience conducting qualitative and quantitative research to uncover consumer behavior and market trends."
+            self.bullet2 = "Skilled in designing surveys, collecting data, and using SPSS and Excel for actionable insights."
+            self.bullet3 = "Experienced in delivering market research projects end-to-end, ensuring accurate insights for strategic decision-making."
+            self.highlights = "Market Research, Consumer Insights, SPSS, Excel, Survey Design, Data Analysis"
+            self.cta = f"I’d love the opportunity to discuss how my market research expertise can help {self.company_name} make informed, data-driven decisions."
+        elif self.role == 'Project Manager':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your contact information on LinkedIn and wanted to reach out directly. 
+            Thank you for taking the time to consider my application.</p>
+
+            <p>I hold an <b>MBA in Healthcare and Hospital Management</b> from <b>Hyderabad Central University</b> 
+            and a <b>B.Sc. in Life Sciences</b> from the University of Delhi. 
+            Over the past 3+ years, I’ve led multiple projects across FMCG, healthcare, and public policy sectors, managing timelines, resources, and stakeholders efficiently. 
+            I currently work as a <b>Project Manager at Bintix Waste Research</b>, delivering strategic initiatives that drive organizational impact.</p>
+
+            <ul>
+            <li>Planned, executed, and monitored projects from inception to completion, ensuring timely delivery and high-quality outcomes.</li>
+            <li>Managed cross-functional teams, coordinated stakeholders, and streamlined workflows for project efficiency.</li>
+            <li>Developed reports and dashboards to track progress, risks, and KPIs, facilitating data-driven decision-making.</li>
+            </ul>
+
+            <p>My expertise in <b>project planning, stakeholder management, MS Project, Excel, and reporting</b> equips me to deliver impactful projects — 
+            and I’m excited to bring this to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Harsha Jha</b><br>
+            Ph: <a href="tel:+917836907197">7836907197</a><br>
+            """
+
+            self.bullet1 = "Proven experience in planning, executing, and monitoring projects across diverse sectors."
+            self.bullet2 = "Strong skills in stakeholder management and coordinating cross-functional teams to achieve project goals."
+            self.bullet3 = "Proficient in project tracking, reporting, and using tools like MS Project and Excel for data-driven decisions."
+            self.highlights = "Project Management, Stakeholder Management, MS Project, Excel, Reporting, Workflow Optimization"
+            self.cta = f"I’d love the opportunity to discuss how my project management skills can drive successful initiatives at {self.company_name}."
+
+        self.TEMPLATE = """{today}
+        Hiring Manager
+        {company}
+
+        Dear {hiring_manager},
+
+        I’m enthusiastic about applying for the <b>{role}</b> role at <b>{company}</b>. With over 4+ years of experience in 
+        market research, data analysis, and project management, I bring a strong analytical mindset and a proven ability 
+        to turn data into meaningful business insights.
+
+        I specialize in {highlights}, and I’ve applied these skills to support decision-making in sectors like FMCG, 
+        healthcare, and public policy.
+
+        Why {company}? {why_company}
+
+        What I bring:
+
+        • <b>{bullet1}</b>
+
+        • <b>{bullet2}</b>
+
+        • <b>{bullet3}</b>
+
+        {cta}
+
+        <b>Best regards,</b>  
+        <b>Harsha Jha</b>  
+        📞+91-7836907197 | ✉ harshajha13@gmail.com
+        """
+        self.text = self.TEMPLATE.format(
+            today=date.today().strftime("%B %d, %Y"),
+            hiring_manager=self.recruiter or "Hiring Manager",
+            role=self.role_name,
+            company=self.company_name,
+            highlights=self.highlights,
+            why_company=self.why_company,
+            bullet1=self.bullet1,
+            bullet2=self.bullet2,
+            bullet3=self.bullet3,
+            cta=self.cta
+        )
+        self.text = dedent(self.text)
+        self.name = 'Harsha Jha'
+        self.official_role = 'Data Analyst'
+        self.pdf_filename = generate_cover_letter_pdf(self.text, self.name.capitalize(), self.official_role,f"{st.session_state.get('username')} Cover Letter.pdf")
+        self.official_name = "harshajha13@gmail.com"
+        self.resume_path = r"Harsha Jha Resume.pdf"
+        return self.email_body, self.pdf_filename, self.official_name, self.resume_path
+
+    def bhanu(self):
+        if self.role == 'Full Stack Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’m writing to express my keen interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your contact on LinkedIn and wanted to reach out directly regarding potential opportunities 
+            in your engineering team. Thank you for taking the time to consider my application.</p>
+
+            <p>I hold a B.Tech in Mechanical Engineering from <b>IIT Patna (2024)</b> and currently work as a 
+            <b>Full Stack Developer</b> at <b>Bintix</b>. Over the past year, I’ve contributed to multiple end-to-end 
+            web applications, focusing on scalable backend logic, responsive front-ends, and seamless data integration.</p>
+
+            <ul>
+            <li>Built and maintained web applications using <b>React.js, Node.js, and Express</b> with MongoDB and Sequelize ORM.</li>
+            <li>Enhanced performance and maintainability by converting legacy PHP modules to Node.js and improving REST API efficiency.</li>
+            <li>Implemented advanced UI features like infinite scrolling, modular grids, and pagination using <b>Material-UI</b> and CSS.</li>
+            </ul>
+
+            <p>My expertise in <b>MERN stack development</b> enables me to design performant APIs and intuitive front-ends, 
+            and I’m eager to bring the same impact to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Macharla Venkata Bhanu</b><br>
+            Ph: <a href="tel:+916302376836">6302376836</a><br>
+            <a href="https://github.com/MacharlaBhanu">GitHub Profile</a> | 
+            <a href="https://www.linkedin.com/in/macharla-venkata-bhanu/">LinkedIn Profile</a></p>
+            """
+            self.bullet1 = "At Bintix, I built and optimized full-stack applications by migrating PHP services to Node.js and improving UI performance using React and MUI."
+            self.bullet2 = "I’ve implemented REST APIs with Express and MongoDB, ensuring scalability, modularity, and reliability across services."
+            self.bullet3 = "I developed personal projects like a Chat Application and an Entertainment Hub integrating APIs, authentication, and responsive design."
+            self.highlights = "React.js, Node.js, Express, MongoDB, RESTful APIs, MUI, and backend optimization"
+            self.cta = f"I’d love the opportunity to discuss how I can contribute to {self.company_name}’s engineering team by building scalable, maintainable, and high-impact systems."
+        elif self.role == 'Software Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’m writing to express my keen interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your contact on LinkedIn and wanted to reach out directly regarding potential opportunities 
+            in your engineering team. Thank you for taking the time to consider my application.</p>
+
+            <p>I hold a B.Tech in Mechanical Engineering from <b>IIT Patna (2024)</b> and currently work as a 
+            <b>Software Development Engineer (SDE)</b> at <b>Bintix</b>. Over the past year, I’ve worked on building 
+            scalable software solutions, optimizing algorithms, and improving system efficiency across multiple projects.</p>
+
+            <ul>
+            <li>Designed and implemented RESTful APIs and backend services in <b>Node.js and Python</b> for enterprise applications.</li>
+            <li>Optimized data processing pipelines, reducing computation time and improving throughput for high-volume applications.</li>
+            <li>Developed modular and reusable code for internal tools and client-facing applications, improving maintainability.</li>
+            </ul>
+
+            <p>My expertise in <b>backend architecture, API development, and algorithm optimization</b> allows me to deliver high-quality software solutions, 
+            and I’m excited to bring this experience to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Macharla Venkata Bhanu</b><br>
+            Ph: <a href="tel:+916302376836">6302376836</a><br>
+            <a href="https://github.com/MacharlaBhanu">GitHub Profile</a> | 
+            <a href="https://www.linkedin.com/in/macharla-venkata-bhanu/">LinkedIn Profile</a></p>
+            """
+
+            self.bullet1 = "Developed RESTful APIs and backend services in Node.js and Python, ensuring scalability and reliability."
+            self.bullet2 = "Optimized data pipelines and algorithms to enhance system efficiency and throughput."
+            self.bullet3 = "Created modular, reusable code for internal and client-facing applications, improving maintainability."
+            self.highlights = "Node.js, Python, RESTful APIs, Backend Development, Data Pipelines, Algorithm Optimization"
+            self.cta = f"I’d love the opportunity to discuss how I can contribute to {self.company_name}’s engineering team by building robust, scalable software solutions."
+
+
+        elif self.role == 'Backend Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’m writing to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your contact on LinkedIn and wanted to connect regarding backend development opportunities. 
+            Thank you for your time in considering my application.</p>
+
+            <p>I hold a B.Tech in Mechanical Engineering from <b>IIT Patna (2024)</b> and currently work as a 
+            <b>Backend Developer</b> at <b>Bintix</b>. Over the past year, I’ve focused on designing scalable backend architectures, 
+            building REST APIs, and integrating databases for high-performance applications.</p>
+
+            <ul>
+            <li>Built and maintained backend services using <b>Node.js, Express, and MongoDB</b> for production applications.</li>
+            <li>Optimized database queries and API responses to improve application speed and reduce server load.</li>
+            <li>Implemented authentication, authorization, and data validation for secure and reliable applications.</li>
+            </ul>
+
+            <p>My expertise in <b>backend development, database management, and API design</b> allows me to create scalable and reliable systems, 
+            and I’m eager to bring this expertise to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Macharla Venkata Bhanu</b><br>
+            Ph: <a href="tel:+916302376836">6302376836</a><br>
+            <a href="https://github.com/MacharlaBhanu">GitHub Profile</a> | 
+            <a href="https://www.linkedin.com/in/macharla-venkata-bhanu/">LinkedIn Profile</a></p>
+            """
+
+            self.bullet1 = "Built and maintained backend services with Node.js, Express, and MongoDB for production applications."
+            self.bullet2 = "Optimized database queries and API responses to enhance performance and reduce server load."
+            self.bullet3 = "Implemented secure authentication, authorization, and data validation mechanisms for reliable systems."
+            self.highlights = "Node.js, Express, MongoDB, RESTful APIs, Backend Architecture, Security, Performance Optimization"
+            self.cta = f"I’d love the opportunity to discuss how I can contribute to {self.company_name}’s backend team by building scalable, secure, and high-performance systems."
+
+        self.TEMPLATE = """{today}
+                Hiring Manager
+                {company}
+
+                Dear {hiring_manager},
+
+                I’m enthusiastic about applying for the <b>{role}</b> role at <b>{company}</b>, where I see a strong alignment between my
+                experience and your product-focused engineering culture.
+
+                I specialize in {highlights}, and I’ve used these skills to deliver measurable impact.
+
+                Why {company}? {why_company}
+
+                What I bring:
+
+                • <b>{bullet1}</b>
+
+                • <b>{bullet2}</b>
+
+                • <b>{bullet3}</b>
+
+                {cta}
+
+                <b>Best regards,</b>  
+                <b>Macharla Venkata Bhanu</b>  
+                6302376836 | ✉ macharlabhanu169@gmail.com  
+                GitHub: https://github.com/MacharlaBhanu  
+                LinkedIn: https://www.linkedin.com/in/macharla-venkata-bhanu/"""
+        self.text = self.TEMPLATE.format(
+            today=date.today().strftime("%B %d, %Y"),
+            hiring_manager=self.recruiter or "Hiring Manager",
+            role=self.role_name,
+            company=self.company_name,
+            highlights=self.highlights,
+            why_company=self.why_company,
+            bullet1=self.bullet1,
+            bullet2=self.bullet2,
+            bullet3=self.bullet3,
+            cta=self.cta
+        )
+        self.text = dedent(self.text)
+        self.name = 'Macharla Venkata Bhanu'
+        self.official_role = 'Full Stack Developer'
+        self.pdf_filename = generate_cover_letter_pdf(self.text, self.name.capitalize(), self.official_role,
+                                                      f"{st.session_state.get('username')} Cover Letter.pdf")
+        self.official_name = "macharlabhanu169@gmail.com"
+        self.resume_path = r"Macharla Venkata Bhanu Resume.pdf"
+        return self.email_body, self.pdf_filename, self.official_name, self.resume_path
+
 def main():
     # ---------------- STREAMLIT UI ----------------
     st.set_page_config(page_title="Automated Job Application", page_icon="📧")
@@ -680,6 +1196,13 @@ def main():
         role = st.selectbox("Select the Role", ['Data Analyst', 'Data Scientist', 'Data Engineer','Machine Learning Engineer', 'Data Governance Analyst', 'Product Analyst', 'Python Developer'])
     elif user == 'sakshi':
         role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Developer'])
+    elif user == 'sai':
+        role = st.selectbox("Select the Role", ['Full Stack Engineer', 'Android Developer', 'Frontend Developer', 'Mobile Developer', 'Software Developer', 'Software Engineer'])
+    elif user == 'harsha':
+        role = st.selectbox("Select the Role", ['Data Analyst', 'Market Researcher', 'Project Manager'])
+    elif user == 'bhanu':
+        role = st.selectbox("Select the Role", ['Full Stack Developer', 'Software Developer', 'Backend Developer'])
+
     role_name = st.text_input("Official Role Name (as per Job Posting)", placeholder="Type here...")
     if not role_name:
         st.warning("Role isn't specified in text box taking selected dropdown role name!")
@@ -772,7 +1295,7 @@ def main():
             has_error = True
         if has_error:
             st.stop()
-        pass_dict = {'sakshigawandecse@gmail.com':"illr ufri rqeo cwia", "vishnuvardhan.chowhan@gmail.com": "dipi cqsq sgvz ukof"}
+        pass_dict = {'sakshigawandecse@gmail.com':"illr ufri rqeo cwia", "vishnuvardhan.chowhan@gmail.com": "dipi cqsq sgvz ukof", "pollojukiran06@gmail.com": "hros iuyd sbhs ptgh", "harshajha13@gmail.com": "rnrq afrs yicb kuyg", "macharlabhanu169@gmail.com": "yzml pmkv bzqh ytxz"}
         if not recruiter_mail or not company_name or not role_name:
             st.warning("⚠️ Please fill in all the fields before sending.")
         else:

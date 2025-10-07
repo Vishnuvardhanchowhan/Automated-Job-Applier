@@ -8,6 +8,18 @@ credentials:
       email: sakshi@bintix.com
       name: Sakshi Gawande
       password: '$2b$12$YTNL8tf.y6t.tMWAle.YquvCXY2I1tg6413XshXl8v12p77YW6jlO'
+    sai:
+      email: pollojukiran06@gmail.com
+      name: Polloju Sai Kiran
+      password: '$2b$12$9.EwnHAbDr89Xw86KO1Wiex0D3PC7cy63XTIOo4haZGmEdLQphu6m'
+    harsha:
+      email: harshajha13@gmail.com
+      name: Harsha Jha
+      password: '$2b$12$.LghwX53aQxxBEDLUuFWv.KV92D25VH/NFgNh7AzUxNXk9oNG/anG'
+    bhanu:
+      email: macharlabhanu169@gmail.com
+      name: Bhanu Macharla
+      password: '$2b$12$JZ96XhqBdPRCUO0Ijx3/m.k0m/158u3Js9uszP3.ubg/.47jopdWy'
 cookie:
   expiry_days: 0
   key: random_signature_key
