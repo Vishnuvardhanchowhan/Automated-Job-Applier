@@ -22,6 +22,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from dotenv import load_dotenv
 import re
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 load_dotenv()
@@ -1349,8 +1351,6 @@ def main():
 
             st.success(f"📧 Email sent successfully to {recruiter_name} with Resume + Cover Letter PDF!")
             service = authenticate_google_sheets()
-            if not service:
-                return
             SPREADSHEET_ID = "1bsD_uv_r1uNWn9JD85WWMpwTnxEmuP-Eqm-zlI2tp9U"
             application_details = [date.today().strftime("%Y-%m-%d"),company_name,role_name,job_id,recruiter_name,recipient,msg["Subject"],why_company,job_description,"Sent"]
             log_application(service, SPREADSHEET_ID, user, application_details)

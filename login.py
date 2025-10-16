@@ -3,10 +3,14 @@ import yaml
 from yaml.loader import SafeLoader
 import streamlit_authenticator as stauth
 
-# Page config
-st.set_page_config(page_title="Login", page_icon="🔐", initial_sidebar_state="collapsed")
+# ----------------- PAGE CONFIG -----------------
+st.set_page_config(
+    page_title="Login",
+    page_icon="🔐",
+    initial_sidebar_state="collapsed"
+)
 
-# Hide sidebar & default UI
+# ----------------- HIDE DEFAULT UI -----------------
 st.markdown(
     """
     <style>
@@ -18,7 +22,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Load config
+# ----------------- LOAD CONFIG -----------------
 try:
     with open("config.yaml") as file:
         config = yaml.load(file, Loader=SafeLoader)
@@ -29,7 +33,7 @@ except Exception as e:
     st.error(f"Error loading configuration: {e}")
     st.stop()
 
-# Build authenticator
+# ----------------- BUILD AUTHENTICATOR -----------------
 try:
     authenticator = stauth.Authenticate(
         config["credentials"],
@@ -41,7 +45,7 @@ except KeyError as e:
     st.error(f"Missing required configuration: {e}")
     st.stop()
 
-# Initialize session state for authentication
+# ----------------- SESSION STATE INIT -----------------
 if 'authentication_status' not in st.session_state:
     st.session_state.authentication_status = None
 if 'username' not in st.session_state:
@@ -49,22 +53,20 @@ if 'username' not in st.session_state:
 if 'name' not in st.session_state:
     st.session_state.name = None
 
-# -------------------------------
-# LOGIN FORM
-# -------------------------------
+# ----------------- LOGIN FORM -----------------
 # Use the login method without unpacking
 authenticator.login(location="main")
 
-# Check if authentication was successful by examining session state
-if (st.session_state.get("authentication_status") and
+# ----------------- AFTER LOGIN -----------------
+if (
+        st.session_state.get("authentication_status") and
         st.session_state.get("username") and
-        st.session_state.get("name")):
-
-    # -------------------------------
-    # DASHBOARD (only if authenticated)
-    # -------------------------------
+        st.session_state.get("name")
+):
+    # ---------------- DASHBOARD ----------------
     st.sidebar.success(f"✅ Logged in as {st.session_state['name']}")
 
+    # Show email if available
     try:
         user_email = config['credentials']['usernames'][st.session_state['username']]['email']
         st.sidebar.write(f"Email: {user_email}")
@@ -80,20 +82,35 @@ if (st.session_state.get("authentication_status") and
                 del st.session_state[key]
         st.rerun()  # Rerun to show login form
 
-    # Hidden navigation to Mail Drafter dashboard
+    # ----------------- TOOL SELECTION -----------------
     try:
-        pages = {
-            "Main": [
-                st.Page("pages/mail_drafter.py", title="Mail Drafter", icon="✉️"),
-            ]
-        }
+        tool_sel = st.sidebar.selectbox(
+            "🛠 Choose Tool",
+            ["Email", "LinkedIn"]
+        )
+
+        # Load the corresponding page
+        if tool_sel == "Email":
+            pages = {
+                "Main": [
+                    st.Page("pages/mail_drafter.py", title="Mail Drafter", icon="✉️"),
+                ]
+            }
+        else:
+            pages = {
+                "Main": [
+                    st.Page("pages/linkedin_msg_sender.py", title="LinkedIn Message Drafter", icon="✉️"),
+                ]
+            }
+
         pg = st.navigation(pages, position="hidden")
         pg.run()
+
     except Exception as e:
         st.error(f"Error loading navigation: {e}")
 
+# ----------------- LOGIN FAILED OR NOT ATTEMPTED -----------------
 elif st.session_state.get("authentication_status") is False:
     st.error("❌ Username/password is incorrect")
-
 elif st.session_state.get("authentication_status") is None:
     st.warning("🔑 Please enter your username and password")
