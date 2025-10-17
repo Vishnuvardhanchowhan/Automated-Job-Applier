@@ -55,7 +55,7 @@ ROLE_OPTIONS = {
     "bhanu": ['Full Stack Developer', 'Software Developer', 'Backend Developer']
 }
 
-STAGE_OPTIONS = ["Start", "After Reply", "Referral Request", "Follow-up"]
+STAGE_OPTIONS = ["Send a Note", "Start", "After Reply", "Referral Request", "Follow-up"]
 
 # ---------------- CHECK OR CREATE SHEET ----------------
 def ensure_user_sheet(service, spreadsheet_id, user):
@@ -164,7 +164,7 @@ def main():
                 role = st.selectbox("Select the Role", ['Data Analyst', 'Market Researcher', 'Project Manager'])
             elif user == 'bhanu':
                 role = st.selectbox("Select the Role", ['Full Stack Developer', 'Software Developer', 'Backend Developer'])
-            stage = st.selectbox("Stage", ["Start", "After Reply", "Referral Request", "Follow-up"])
+            stage = st.selectbox("Stage", STAGE_OPTIONS)
             submitted = st.form_submit_button("Add Prospect")
             if submitted:
                 if all([prospect_name, linkedin_link, company_name, role, stage]):
@@ -187,6 +187,32 @@ def main():
     df.set_index("Prospect Name", inplace=True)
 
     # ---------------- USER-SPECIFIC MESSAGE TEMPLATES ----------------
+    note_templates = {
+        "vishnu": dedent("""\
+            Hi {Name}, I came across your work at {Company} and was really impressed! 
+            I'm into data analytics and automation, and I’d love to connect and learn from your {Role} experience.
+        """),
+
+        "sakshi": dedent("""\
+            Hi {Name}, I really liked the projects at {Company}! 
+            I’m a full-stack developer exploring roles that align with my {Role} skills — would love to connect!
+        """),
+
+        "harsha": dedent("""\
+            Hi {Name}, I admire the initiatives happening at {Company}. 
+            I specialize in analytics and market insights — hoping to connect and exchange ideas on {Role}-related work!
+        """),
+
+        "sai": dedent("""\
+            Hey {Name}, loved what {Company} is building! 
+            I’m a software engineer passionate about scalable products and {Role}-focused development. Let’s connect!
+        """),
+
+        "bhanu": dedent("""\
+            Hi {Name}, {Company}’s tech work caught my attention! 
+            I’m a backend/full-stack developer keen to connect and discuss {Role}-driven opportunities.
+        """)
+    }
     user_templates = {
         "vishnu": dedent("""\
             Hi {Name},
@@ -196,6 +222,9 @@ def main():
             I specialize in data analytics, Python, SQL, and automation, and I’m currently looking for opportunities where I can contribute my {Role} skills.
     
             I’d love to know if there are any openings or upcoming projects where I could be a good fit.
+            
+            Thanks,
+            {user}
         """),
 
         "sakshi": dedent("""\
@@ -206,6 +235,9 @@ def main():
             I am experienced in full-stack development, including React, Node.js, and TypeScript, and I’m eager to contribute my {Role} skills.
     
             Are there any roles or projects where I could be helpful?
+            
+            Thanks,
+            {user}
         """),
 
         "harsha": dedent("""\
@@ -216,6 +248,9 @@ def main():
             I specialize in data analytics, market research, and project management, and I’d love to contribute my {Role} skills to your team.
     
             Could you let me know if there are any roles or opportunities I can assist with?
+            
+            Thanks,
+            {user}
         """),
 
         "sai": dedent("""\
@@ -226,6 +261,9 @@ def main():
             I am a versatile software engineer experienced in full-stack and mobile development, and I’d love to contribute my {Role} skills to your team.
     
             Are there any openings or upcoming projects that might be a good fit?
+            
+            Thanks,
+            {user}
         """),
 
         "bhanu": dedent("""\
@@ -236,6 +274,9 @@ def main():
             My expertise lies in backend and full-stack development, and I am eager to apply my {Role} skills to contribute effectively.
     
             Would you be able to guide me on any opportunities where I could add value?
+            
+            Thanks,
+            {user}
         """)
     }
 
@@ -244,9 +285,12 @@ def main():
         "After Reply": dedent("""\
             Hi {Name},
     
-            Thank you so much for getting back to me! 🙏
+            Thank you so much for getting back to me!
     
             I’d love to share my resume and explore if my experience aligns with any opportunities at {Company}. Your guidance or feedback would mean a lot!
+            
+            Thanks,
+            {user}
         """),
 
         "Referral Request": dedent("""\
@@ -257,6 +301,9 @@ def main():
             I noticed a {Role} position at {Company} that matches my skills and experience perfectly. If you think I could be a fit, I would greatly appreciate your referral. 
     
             I’m really excited about the chance to contribute and grow with your team!
+            
+            Thanks,
+            {user}
         """),
 
         "Follow-up": dedent("""\
@@ -264,7 +311,10 @@ def main():
     
             I hope all is well! Just following up on my previous message to see if you had a chance to review my profile.
     
-            I remain very interested in opportunities at {Company} and would love to contribute my {Role} skills to your team. Looking forward to your thoughts! 🙂
+            I remain very interested in opportunities at {Company} and would love to contribute my {Role} skills to your team. Looking forward to your thoughts!
+            
+            Thanks,
+            {user}
         """)
     }
 
@@ -355,9 +405,10 @@ def main():
             stage = filtered_df.loc[name, "Stage"]
 
         # ---------------- MESSAGE LOGIC ----------------
+        common_dict['Send a Note'] = note_templates.get(user, note_templates["sakshi"])
         common_dict['Start'] = user_templates.get(user, user_templates["sakshi"])
-        message_filled = common_dict.get(stage, common_dict["Start"]).format(Name=name, Company=company_name,
-                                                                                   Role=role)
+        message_filled = common_dict.get(stage, common_dict['Send a Note']).format(Name=name, Company=company_name,
+                                                                                   Role=role, user = user)
         st.markdown("<h1 style='text-align:center;'>💼 LinkedIn Message Sender</h1>", unsafe_allow_html=True)
         st.divider()
 
