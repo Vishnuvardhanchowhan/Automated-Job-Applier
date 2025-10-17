@@ -134,7 +134,67 @@ def ensure_user_sheet(service, spreadsheet_id, user):
         st.error(f"Error creating sheet: {e}")
         return False
 
+
+def update_cells(service, spreadsheet_id, sheet_name, row_index, col_index, new_value):
+    """
+    Update a single cell in a Google Sheet.
+
+    Parameters:
+        service        : Authenticated Google Sheets API service
+        spreadsheet_id : str, your Google Sheet ID
+        sheet_name     : str, the tab name inside the spreadsheet
+        row_index      : int, 1-based row number (e.g. 2 for second row)
+        col_index      : int, 1-based column number (e.g. 3 for column C)
+        new_value      : str, the new value to write in the cell
+    """
+    try:
+        # Convert column index to A1 notation (e.g. 1 → A, 27 → AA)
+        def col_index_to_letter(n):
+            letters = ""
+            while n:
+                n, remainder = divmod(n - 1, 26)
+                letters = chr(65 + remainder) + letters
+            return letters
+
+        col_letter = col_index_to_letter(col_index)
+        cell_ref = f"{sheet_name}!{col_letter}{row_index}"
+
+        body = {"values": [[new_value]]}
+
+        service.spreadsheets().values().update(
+            spreadsheetId=spreadsheet_id,
+            range=cell_ref,
+            valueInputOption="RAW",
+            body=body
+        ).execute()
+
+        st.toast(f"✅ Updated cell {cell_ref} to '{new_value}'")
+        return True
+
+    except Exception as e:
+        st.error(f"⚠️ Failed to update cell: {e}")
+        return False
+
 def main():
+    role_dict = {
+        "vishnu": [
+            "Data Analyst", "Data Scientist", "Data Engineer", "Machine Learning Engineer",
+            "Data Governance Analyst", "Product Analyst", "Python Developer"
+        ],
+        "sakshi": [
+            "Full Stack Developer", "Frontend Developer", "Backend Developer", "Software Developer"
+        ],
+        "sai": [
+            "Full Stack Engineer", "Android Developer", "Frontend Developer", "Mobile Developer",
+            "Software Developer", "Software Engineer"
+        ],
+        "harsha": [
+            "Data Analyst", "Market Researcher", "Project Manager"
+        ],
+        "bhanu": [
+            "Full Stack Developer", "Software Developer", "Backend Developer"
+        ]
+    }
     sheet_exists = ensure_user_sheet(service, SPREADSHEET_ID, user)
 
     # ---------------- LOAD DATA ----------------
@@ -149,21 +209,7 @@ def main():
             prospect_name = st.text_input("Prospect Name")
             linkedin_link = st.text_input("LinkedIn Profile Link")
             company_name = st.text_input("Company Name")
-            if user == 'vishnu':
-                role = st.selectbox("Select the Role",
-                                    ['Data Analyst', 'Data Scientist', 'Data Engineer', 'Machine Learning Engineer',
-                                     'Data Governance Analyst', 'Product Analyst', 'Python Developer'])
-            elif user == 'sakshi':
-                role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer',
-                                                        'Software Developer'])
-            elif user == 'sai':
-                role = st.selectbox("Select the Role",
-                                    ['Full Stack Engineer', 'Android Developer', 'Frontend Developer', 'Mobile Developer',
-                                     'Software Developer', 'Software Engineer'])
-            elif user == 'harsha':
-                role = st.selectbox("Select the Role", ['Data Analyst', 'Market Researcher', 'Project Manager'])
-            elif user == 'bhanu':
-                role = st.selectbox("Select the Role", ['Full Stack Developer', 'Software Developer', 'Backend Developer'])
+            role = st.selectbox("Select the Role", role_dict[user])
             stage = st.selectbox("Stage", STAGE_OPTIONS)
             submitted = st.form_submit_button("Add Prospect")
             if submitted:
@@ -189,28 +235,53 @@ def main():
     # ---------------- USER-SPECIFIC MESSAGE TEMPLATES ----------------
     note_templates = {
         "vishnu": dedent("""\
-            Hi {Name}, I came across your work at {Company} and was really impressed! 
+            Hi {Name}, 
+            
+            I came across your work at {Company} and was really impressed! 
             I'm into data analytics and automation, and I’d love to connect and learn from your {Role} experience.
+            
+            Thanks,
+            {user}
         """),
 
         "sakshi": dedent("""\
-            Hi {Name}, I really liked the projects at {Company}! 
+            Hi {Name}, 
+            
+            I really liked the projects at {Company}! 
             I’m a full-stack developer exploring roles that align with my {Role} skills — would love to connect!
+            
+            Thanks,
+            {user}
         """),
 
         "harsha": dedent("""\
-            Hi {Name}, I admire the initiatives happening at {Company}. 
+            Hi {Name}, 
+            
+            I admire the initiatives happening at {Company}. 
             I specialize in analytics and market insights — hoping to connect and exchange ideas on {Role}-related work!
+            
+            Thanks,
+            {user}
         """),
 
         "sai": dedent("""\
-            Hey {Name}, loved what {Company} is building! 
+            Hey {Name}, 
+            
+            loved what {Company} is building! 
             I’m a software engineer passionate about scalable products and {Role}-focused development. Let’s connect!
+            
+            Thanks,
+            {user}
         """),
 
         "bhanu": dedent("""\
-            Hi {Name}, {Company}’s tech work caught my attention! 
+            Hi {Name}, 
+            
+            {Company}’s tech work caught my attention! 
             I’m a backend/full-stack developer keen to connect and discuss {Role}-driven opportunities.
+            
+            Thanks,
+            {user}
         """)
     }
     user_templates = {
@@ -321,7 +392,6 @@ def main():
 
     # ---------------- SELECT PROSPECT ----------------
     st.sidebar.title("💬 LinkedIn Prospect Details")
-    # Option to add new prospect
     add_new = st.sidebar.checkbox("➕ Add New Prospect")
 
     if add_new:
@@ -407,21 +477,30 @@ def main():
         # ---------------- MESSAGE LOGIC ----------------
         common_dict['Send a Note'] = note_templates.get(user, note_templates["sakshi"])
         common_dict['Start'] = user_templates.get(user, user_templates["sakshi"])
-        message_filled = common_dict.get(stage, common_dict['Send a Note']).format(Name=name, Company=company_name,
-                                                                                   Role=role, user = user)
+
         st.markdown("<h1 style='text-align:center;'>💼 LinkedIn Message Sender</h1>", unsafe_allow_html=True)
         st.divider()
-
+        roles_list = role_dict[user]
         col1, col2 = st.columns([1.1, 2])
-
         with col1:
             st.subheader("👤 Prospect Details")
             st.write(f"**Name:** {name}")
             st.write(f"**Company:** {company_name}")
-            st.write(f"**Role:** {role}")
-            st.write(f"**Stage:** {stage}")
+            new_role = st.selectbox("Role", roles_list, index=roles_list.index(role) if role in roles_list else 0,
+                                     key=f"stage_{role}")
+            new_stage = st.selectbox("Stage", STAGE_OPTIONS,
+                                     index=STAGE_OPTIONS.index(stage) if stage in STAGE_OPTIONS else 0,
+                                     key=f"stage_{name}")
             st.markdown(f"[🔗 View LinkedIn Profile]({profile_link})", unsafe_allow_html=True)
+            if new_role != role:
+                update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 4, new_role)
+                st.success(f"✅ Role updated to '{new_role}'")
+            if new_stage != stage:
+                update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 5, new_stage)
+                st.success(f"✅ Stage updated to '{new_stage}'")
 
+        message_filled = common_dict.get(new_stage, common_dict['Send a Note']).format(Name=name, Company=company_name,
+                                                                                   Role=new_role, user=user[:1].upper() + user[1:].lower())
         with col2:
             # show message so user can review before copying
             st.subheader("💬 Auto-Generated Message")
