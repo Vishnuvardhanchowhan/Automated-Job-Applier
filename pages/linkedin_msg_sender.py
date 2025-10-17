@@ -4,11 +4,11 @@ import base64
 import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+import streamlit.components.v1 as components
 from dotenv import load_dotenv
 import pandas as pd
 from textwrap import dedent
-import webbrowser
+import html
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(page_title="LinkedIn Message Sender", page_icon="💬", layout="wide")
@@ -270,7 +270,7 @@ def main():
 
 
     # ---------------- SELECT PROSPECT ----------------
-    st.sidebar.title("💬 LinkedIn Message Sender")
+    st.sidebar.title("💬 LinkedIn Prospect Details")
     # Option to add new prospect
     add_new = st.sidebar.checkbox("➕ Add New Prospect")
 
@@ -309,21 +309,58 @@ def main():
             else:
                 st.warning("⚠️ Please choose different name as name you added already exist in sheet!")
 
+
     if not df.empty:
-        name = st.sidebar.selectbox("Prospect Name", df.index)
-        profile_link = df.loc[name, 'Prospect Linkedin Profile Link']
-        company_name = df.loc[name, 'Company']
-        role = df.loc[name, 'Role']
-        stage = df.loc[name, 'Stage']
+        # ---------------- Sidebar UI ----------------
+        st.divider()
+        st.sidebar.subheader("🎯 Choose Prospect")
+
+        # --- Filters ---
+        company_filter = st.sidebar.selectbox(
+            "🏢 Filter by Company",
+            options=["All"] + sorted(df["Company"].dropna().unique().tolist())
+        )
+
+        role_filter = st.sidebar.selectbox(
+            "💼 Filter by Role",
+            options=["All"] + sorted(df["Role"].dropna().unique().tolist())
+        )
+
+        stage_filter = st.sidebar.selectbox(
+            "🚀 Filter by Stage",
+            options=["All"] + sorted(df["Stage"].dropna().unique().tolist())
+        )
+
+        # --- Apply filters dynamically ---
+        filtered_df = df.copy()
+        if company_filter != "All":
+            filtered_df = filtered_df[filtered_df["Company"] == company_filter]
+        if role_filter != "All":
+            filtered_df = filtered_df[filtered_df["Role"] == role_filter]
+        if stage_filter != "All":
+            filtered_df = filtered_df[filtered_df["Stage"] == stage_filter]
+
+        # --- Prospect selector ---
+        name = st.sidebar.selectbox(
+            "👤 Prospect Name",
+            filtered_df.index.tolist(),
+            index=0 if len(filtered_df) > 0 else None
+        )
+
+        # --- Get details of selected prospect ---
+        if name:
+            profile_link = filtered_df.loc[name, "Prospect Linkedin Profile Link"]
+            company_name = filtered_df.loc[name, "Company"]
+            role = filtered_df.loc[name, "Role"]
+            stage = filtered_df.loc[name, "Stage"]
 
         # ---------------- MESSAGE LOGIC ----------------
         common_dict['Start'] = user_templates.get(user, user_templates["sakshi"])
         message_filled = common_dict.get(stage, common_dict["Start"]).format(Name=name, Company=company_name,
                                                                                    Role=role)
-
-        # ---------------- UI ----------------
         st.markdown("<h1 style='text-align:center;'>💼 LinkedIn Message Sender</h1>", unsafe_allow_html=True)
         st.divider()
+
         col1, col2 = st.columns([1.1, 2])
 
         with col1:
@@ -335,16 +372,56 @@ def main():
             st.markdown(f"[🔗 View LinkedIn Profile]({profile_link})", unsafe_allow_html=True)
 
         with col2:
+            # show message so user can review before copying
             st.subheader("💬 Auto-Generated Message")
-            st.text_area("Generated Message", value=message_filled, height=260)
+            message_filled = st.text_area(
+                "Generated Message",
+                value=message_filled,
+                height=300,
+                disabled=False,  # allow editing
+                key="editable_message"
+            )
             colA, colB = st.columns(2)
+            js_message_literal = json.dumps(message_filled)
             with colA:
-                if st.button("📋 Copy Message"):
-                    st.session_state["copied_message"] = message_filled
-                    st.success("✅ Message copied! Paste into LinkedIn.")
+                copy_button_html = f"""
+                <div>
+                  <button id="copyBtn" style="background:#4CAF50;color:white;padding:0.5em 1em;border-radius:8px;border:none;cursor:pointer;">
+                    📋 Copy Message
+                  </button>
+                  <span id="copyStatus" style="margin-left:8px;"></span>
+                </div>
+                <script>
+                  const textToCopy = {js_message_literal};
+                  const btn = document.getElementById("copyBtn");
+                  const status = document.getElementById("copyStatus");
+                  btn.addEventListener("click", async () => {{
+                    try {{
+                      await navigator.clipboard.writeText(textToCopy);
+                      status.innerText = " ✅ Copied!";
+                      setTimeout(() => status.innerText = "", 2000);
+                    }} catch (err) {{
+                      // Clipboard API may be blocked on insecure origins or by permissions
+                      status.innerText = " ⚠️ Copy failed (check site permissions / https).";
+                      console.error(err);
+                    }}
+                  }});
+                </script>
+                """
+                components.html(copy_button_html, height=60)
+
+            # Open LinkedIn button (anchor link is most reliable to avoid popup blockers)
             with colB:
-                if st.button("🔗 Open LinkedIn Profile"):
-                    webbrowser.open_new_tab(profile_link)
-                    st.info("🌐 LinkedIn profile opened in browser.")
+                if profile_link is not None and profile_link.startswith("http"):
+                    open_link_html = f'''
+                    <a href="{html.escape(profile_link)}" target="_blank" rel="noopener noreferrer">
+                      <button style="background:#0a66c2;color:white;padding:0.5em 1em;border-radius:8px;border:none;cursor:pointer;">
+                        🔗 Open LinkedIn Profile
+                      </button>
+                    </a>
+                    '''
+                    components.html(open_link_html, height=60)
+                else:
+                    st.error("⚠️ Invalid or missing LinkedIn profile link.")
 if __name__ == "__main__":
     main()
