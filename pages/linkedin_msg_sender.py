@@ -512,6 +512,9 @@ def main():
                 user=user.capitalize(),
                 job_link=job_link
             )
+            if job_link.startswith("http"):
+                update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 6, job_link)
+                st.success(f"✅ Job Link updated")
         else:
             message_filled = common_dict[new_stage].format(
                 Name=name,
