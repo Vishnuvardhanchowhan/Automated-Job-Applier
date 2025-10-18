@@ -376,7 +376,7 @@ def main():
             Job Link:
             {job_link}
         
-            I’ve attached my resume below for your reference. 📎
+            I’ve attached my resume below for your reference below.
         
             Thanks,
             {user}
