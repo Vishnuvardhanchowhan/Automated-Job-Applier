@@ -525,7 +525,7 @@ def main():
             message_filled = st.text_area(
                 "Generated Message",
                 value=message_filled,
-                height=300,
+                height=300 if new_stage != 'Referral Request' else 400,
                 disabled=False,  # allow editing
                 key="editable_message"
             )
