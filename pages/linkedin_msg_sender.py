@@ -366,13 +366,18 @@ def main():
 
         "Referral Request": dedent("""\
             Hi {Name},
-    
+        
             I hope you’re doing well! 🌟
-    
+        
             I noticed a {Role} position at {Company} that matches my skills and experience perfectly. If you think I could be a fit, I would greatly appreciate your referral. 
-    
+        
             I’m really excited about the chance to contribute and grow with your team!
-            
+        
+            Job Link:
+            {job_link}
+        
+            I’ve attached my resume below for your reference. 📎
+        
             Thanks,
             {user}
         """),
@@ -498,9 +503,22 @@ def main():
             if new_stage != stage:
                 update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 5, new_stage)
                 st.success(f"✅ Stage updated to '{new_stage}'")
-
-        message_filled = common_dict.get(new_stage, common_dict['Send a Note']).format(Name=name, Company=company_name,
-                                                                                   Role=new_role, user=user[:1].upper() + user[1:].lower())
+        if new_stage == 'Referral Request':
+            job_link = st.text_input("🔗 Job Link for referral:")
+            message_filled = common_dict.format(
+                Name=name,
+                Company=company_name,
+                Role=new_role,
+                user=user.capitalize(),
+                job_link=job_link
+            )
+        else:
+            message_filled = common_dict.format(
+                Name=name,
+                Company=company_name,
+                Role=new_role,
+                user=user.capitalize()
+            )
         with col2:
             # show message so user can review before copying
             st.subheader("💬 Auto-Generated Message")
