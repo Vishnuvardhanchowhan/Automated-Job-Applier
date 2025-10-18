@@ -507,8 +507,8 @@ def main():
             job_link = st.text_input("🔗 Job Link for referral:")
             message_filled = common_dict[new_stage].format(
                 Name=name.capitalize(),
-                Company=company_name.capitalize(),
-                Role=new_role.capitalize(),
+                Company=company_name,
+                Role=new_role,
                 user=user.capitalize(),
                 job_link=job_link
             )
@@ -518,8 +518,8 @@ def main():
         else:
             message_filled = common_dict[new_stage].format(
                 Name=name.capitalize(),
-                Company=company_name.capitalize(),
-                Role=new_role.capitalize(),
+                Company=company_name,
+                Role=new_role,
                 user=user.capitalize()
             )
         with col2:
