@@ -300,12 +300,12 @@ def main():
 
         "sakshi": dedent("""\
             Hi {Name},
-    
-            Thank you for accepting my connection! I noticed the amazing work being done at {Company}.
-    
-            I am experienced in full-stack development, including React, Node.js, and TypeScript, and I’m eager to contribute my {Role} skills.
-    
-            Are there any roles or projects where I could be helpful?
+            
+            Thank you for accepting my connection! I’ve been following the exciting work happening at {Company}.
+            
+            I have about 1.5 years of experience as a Full Stack Developer intern across two companies — most recently at Bintix, where I worked extensively with React, Node.js, and TypeScript to build scalable web applications.
+            
+            I’m really eager to explore how I could contribute my {Role} skills to your team or upcoming projects.
             
             Thanks,
             {user}
@@ -469,7 +469,7 @@ def main():
         name = st.sidebar.selectbox(
             "👤 Prospect Name",
             filtered_df.index.tolist(),
-            index=0 if len(filtered_df) > 0 else None
+            index=len(filtered_df)-1 if len(filtered_df) > 0 else None
         )
 
         # --- Get details of selected prospect ---
