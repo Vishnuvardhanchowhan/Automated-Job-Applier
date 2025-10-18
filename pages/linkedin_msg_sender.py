@@ -505,7 +505,7 @@ def main():
                 st.success(f"✅ Stage updated to '{new_stage}'")
         if new_stage == 'Referral Request':
             job_link = st.text_input("🔗 Job Link for referral:")
-            message_filled = common_dict.format(
+            message_filled = common_dict[new_stage].format(
                 Name=name,
                 Company=company_name,
                 Role=new_role,
@@ -513,7 +513,7 @@ def main():
                 job_link=job_link
             )
         else:
-            message_filled = common_dict.format(
+            message_filled = common_dict[new_stage].format(
                 Name=name,
                 Company=company_name,
                 Role=new_role,
