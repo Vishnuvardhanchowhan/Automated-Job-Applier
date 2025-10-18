@@ -517,9 +517,9 @@ def main():
                 st.success(f"✅ Job Link updated")
         else:
             message_filled = common_dict[new_stage].format(
-                Name=name,
-                Company=company_name,
-                Role=new_role,
+                Name=name.capitalize(),
+                Company=company_name.capitalize(),
+                Role=new_role.capitalize(),
                 user=user.capitalize()
             )
         with col2:
