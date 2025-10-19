@@ -301,7 +301,7 @@ def main():
         "sakshi": dedent("""\
             Hi {Name},
             
-            Thank you for accepting my connection! I’ve been following the exciting work happening at {Company}.
+            Thank you for accepting my connection!
             
             I have about 1.5 years of experience as a Full Stack Developer intern across two companies — most recently at Bintix, where I worked extensively with React, Node.js, and TypeScript to build scalable web applications.
             
