@@ -55,7 +55,7 @@ ROLE_OPTIONS = {
     "bhanu": ['Full Stack Developer', 'Software Developer', 'Backend Developer']
 }
 
-STAGE_OPTIONS = ["Send a Note", "Start", "After Reply", "Referral Request", "Follow-up"]
+STAGE_OPTIONS = ["Send a Note", "Start", "After Reply", "Referral Request", "Follow-up", 'Direct HR/Manager Text']
 
 # ---------------- CHECK OR CREATE SHEET ----------------
 def ensure_user_sheet(service, spreadsheet_id, user):
@@ -176,25 +176,6 @@ def update_cells(service, spreadsheet_id, sheet_name, row_index, col_index, new_
         return False
 
 def main():
-    role_dict = {
-        "vishnu": [
-            "Data Analyst", "Data Scientist", "Data Engineer", "Machine Learning Engineer",
-            "Data Governance Analyst", "Product Analyst", "Python Developer"
-        ],
-        "sakshi": [
-            "Full Stack Developer", "Frontend Developer", "Backend Developer", "Software Developer"
-        ],
-        "sai": [
-            "Full Stack Engineer", "Android Developer", "Frontend Developer", "Mobile Developer",
-            "Software Developer", "Software Engineer"
-        ],
-        "harsha": [
-            "Data Analyst", "Market Researcher", "Project Manager"
-        ],
-        "bhanu": [
-            "Full Stack Developer", "Software Developer", "Backend Developer"
-        ]
-    }
     sheet_exists = ensure_user_sheet(service, SPREADSHEET_ID, user)
 
     # ---------------- LOAD DATA ----------------
@@ -209,7 +190,7 @@ def main():
             prospect_name = st.text_input("Prospect Name")
             linkedin_link = st.text_input("LinkedIn Profile Link")
             company_name = st.text_input("Company Name")
-            role = st.selectbox("Select the Role", role_dict[user])
+            role = st.selectbox("Select the Role", ROLE_OPTIONS[user])
             stage = st.selectbox("Stage", STAGE_OPTIONS)
             job_link = ""
             if stage == "Referral Request":
@@ -354,6 +335,77 @@ def main():
         """)
     }
 
+    hr_templates = {
+        "vishnu": dedent("""\
+            Hi {Name},
+
+            I came across your profile while exploring opportunities at {Company}, and I was really impressed by the impactful work being done there.
+
+            I specialize in data analytics, Python, SQL, and automation, and I’m keen to explore if there are any openings or upcoming roles where my {Role} skills could contribute to your team’s goals.
+
+            I’ve attached my resume for your reference.  
+            Looking forward to hearing from you!
+
+            Thanks,  
+            {user}
+        """),
+
+        "sakshi": dedent("""\
+            Hi {Name},
+
+            I came across your profile while looking into opportunities at {Company}, and I was inspired by the projects and culture your team promotes.
+
+            I have around 1.5 years of experience as a Full Stack Developer intern, working with React, Node.js, and TypeScript to build scalable and user-friendly web applications. I’d love to know if there are any openings where my {Role} skills could be a fit.
+
+            I’ve attached my resume for your reference.  
+            Looking forward to connecting!
+
+            Thanks,  
+            {user}
+        """),
+
+        "harsha": dedent("""\
+            Hello {Name},
+
+            I came across your profile while exploring potential opportunities at {Company}, and I was impressed by the organization’s strategic initiatives.
+
+            With a background in data analytics, market research, and project management, I’m eager to bring my {Role} skills to a dynamic and data-driven team like yours.
+
+            Please find my resume attached for your reference.  
+            I’d be grateful if you could let me know of any relevant opportunities.
+
+            Thanks,  
+            {user}
+        """),
+
+        "sai": dedent("""\
+            Hi {Name},
+
+            I came across your profile while exploring engineering opportunities at {Company}, and I was impressed by the innovation and technology focus there.
+
+            I’m a software engineer experienced in full-stack and mobile app development, and I’m excited about the chance to contribute my {Role} skills to your development team.
+
+            I’ve attached my resume for your reference.  
+            Looking forward to hearing from you!
+
+            Thanks,  
+            {user}
+        """),
+
+        "bhanu": dedent("""\
+            Hello {Name},
+
+            I came across your profile while exploring opportunities at {Company}, and I was truly impressed by the organization’s tech initiatives and engineering culture.
+
+            I specialize in backend and full-stack development and would love to explore how I can contribute my {Role} skills to your team’s ongoing projects.
+
+            I’ve attached my resume for your reference.  
+            Please let me know if there are any current or upcoming roles that might fit my profile.
+
+            Thanks,  
+            {user}
+        """)
+    }
 
     common_dict = {
         "After Reply": dedent("""\
@@ -488,10 +540,11 @@ def main():
         # ---------------- MESSAGE LOGIC ----------------
         common_dict['Send a Note'] = note_templates.get(user, note_templates["sakshi"])
         common_dict['Start'] = user_templates.get(user, user_templates["sakshi"])
+        common_dict['Direct HR/Manager Text'] = hr_templates.get(user, hr_templates["sakshi"])
 
         st.markdown("<h1 style='text-align:center;'>💼 LinkedIn Message Sender</h1>", unsafe_allow_html=True)
         st.divider()
-        roles_list = role_dict[user]
+        roles_list = ROLE_OPTIONS[user]
         col1, col2 = st.columns([1.1, 2])
         with col1:
             st.subheader("👤 Prospect Details")
