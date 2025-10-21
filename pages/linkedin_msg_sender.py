@@ -502,15 +502,19 @@ def main():
             new_stage = st.selectbox("Stage", STAGE_OPTIONS,
                                      index=STAGE_OPTIONS.index(stage) if stage in STAGE_OPTIONS else 0,
                                      key=f"stage_{name}")
-            st.markdown(f"[🔗 View LinkedIn Profile]({profile_link})", unsafe_allow_html=True)
             if new_role != role:
                 update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 4, new_role)
                 st.success(f"✅ Role updated to '{new_role}'")
             if new_stage != stage:
                 update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 5, new_stage)
                 st.success(f"✅ Stage updated to '{new_stage}'")
+            if new_stage == 'Referral Request':
+                job_link = st.text_input("🔗 Job Link for referral:", value=job_link if job_link is not None else "")
+                if job_link.startswith("http"):
+                    update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 6, job_link)
+                    st.success(f"✅ Job Link updated")
+            st.markdown(f"[🔗 View LinkedIn Profile]({profile_link})", unsafe_allow_html=True)
         if new_stage == 'Referral Request':
-            job_link = st.text_input("🔗 Job Link for referral:", value=job_link if job_link is not None else "")
             message_filled = common_dict[new_stage].format(
                 Name=name.capitalize(),
                 Company=company_name,
@@ -518,9 +522,6 @@ def main():
                 user=user.capitalize(),
                 job_link=job_link
             )
-            if job_link.startswith("http"):
-                update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 6, job_link)
-                st.success(f"✅ Job Link updated")
         else:
             message_filled = common_dict[new_stage].format(
                 Name=name.capitalize(),
@@ -529,7 +530,6 @@ def main():
                 user=user.capitalize()
             )
         with col2:
-            # show message so user can review before copying
             st.subheader("💬 Auto-Generated Message")
             message_filled = st.text_area(
                 "Generated Message",
