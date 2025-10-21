@@ -417,7 +417,7 @@ def main():
             job_link = st.sidebar.text_input("🔗 Job Link for referral")
         if st.sidebar.button("Add Prospect"):
             if new_name not in df.index:
-                if all([new_name, new_link, new_company, new_role, new_stage, job_link]):
+                if all([new_name, new_link, new_company, new_role, new_stage]):
                     # Append to Google Sheet
                     RANGE_NAME = f"{user}!A:F"
                     body = {"values": [[new_name, new_link, new_company, new_role, new_stage, job_link]]}
