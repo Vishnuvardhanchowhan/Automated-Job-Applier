@@ -71,12 +71,12 @@ def ensure_user_sheet(service, spreadsheet_id, user):
             service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id, body={"requests": requests}).execute()
 
         # Initialize headers if sheet is empty
-        RANGE_NAME = f"{user}!A1:E1"
+        RANGE_NAME = f"{user}!A1:F1"
         result = service.spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=RANGE_NAME).execute()
         values = result.get("values", [])
 
         if not values:
-            headers = ["Prospect Name", "Prospect Linkedin Profile Link", "Company", "Role", "Stage"]
+            headers = ["Prospect Name", "Prospect Linkedin Profile Link", "Company", "Role", "Stage", "Job Application Link"]
             service.spreadsheets().values().update(
                 spreadsheetId=spreadsheet_id,
                 range=RANGE_NAME,
@@ -198,7 +198,7 @@ def main():
     sheet_exists = ensure_user_sheet(service, SPREADSHEET_ID, user)
 
     # ---------------- LOAD DATA ----------------
-    RANGE_NAME = f"{user}!A:E"
+    RANGE_NAME = f"{user}!A:F"
     result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
     values = result.get("values", [])
 
@@ -211,10 +211,13 @@ def main():
             company_name = st.text_input("Company Name")
             role = st.selectbox("Select the Role", role_dict[user])
             stage = st.selectbox("Stage", STAGE_OPTIONS)
+            job_link = ""
+            if stage == "Referral Request":
+                job_link = st.text_input("🔗 Job Link for referral:")
             submitted = st.form_submit_button("Add Prospect")
             if submitted:
                 if all([prospect_name, linkedin_link, company_name, role, stage]):
-                    body = {"values": [[prospect_name, linkedin_link, company_name, role, stage]]}
+                    body = {"values": [[prospect_name, linkedin_link, company_name, role, stage, job_link]]}
                     service.spreadsheets().values().append(
                         spreadsheetId=SPREADSHEET_ID,
                         range=RANGE_NAME,
@@ -409,13 +412,15 @@ def main():
         role_options = ROLE_OPTIONS.get(user, [])
         new_role = st.sidebar.selectbox("Role", role_options)
         new_stage = st.sidebar.selectbox("Stage", STAGE_OPTIONS)
-
+        job_link = ""
+        if new_stage == "Referral Request":
+            job_link = st.sidebar.text_input("🔗 Job Link for referral")
         if st.sidebar.button("Add Prospect"):
             if new_name not in df.index:
-                if all([new_name, new_link, new_company, new_role, new_stage]):
+                if all([new_name, new_link, new_company, new_role, new_stage, job_link]):
                     # Append to Google Sheet
-                    RANGE_NAME = f"{user}!A:E"
-                    body = {"values": [[new_name, new_link, new_company, new_role, new_stage]]}
+                    RANGE_NAME = f"{user}!A:F"
+                    body = {"values": [[new_name, new_link, new_company, new_role, new_stage, job_link]]}
                     try:
                         service.spreadsheets().values().append(
                             spreadsheetId=SPREADSHEET_ID,
@@ -425,7 +430,7 @@ def main():
                         ).execute()
 
                         # Update local DataFrame immediately
-                        df.loc[new_name] = [new_link, new_company, new_role, new_stage]
+                        df.loc[new_name] = [new_link, new_company, new_role, new_stage, job_link]
                         st.success(f"✅ Prospect '{new_name}' added successfully!")
                     except Exception as e:
                         st.error(f"⚠️ Failed to add prospect: {e}")
@@ -478,6 +483,7 @@ def main():
             company_name = filtered_df.loc[name, "Company"]
             role = filtered_df.loc[name, "Role"]
             stage = filtered_df.loc[name, "Stage"]
+            job_link = filtered_df.loc[name, "Job Application Link"]
 
         # ---------------- MESSAGE LOGIC ----------------
         common_dict['Send a Note'] = note_templates.get(user, note_templates["sakshi"])
@@ -504,7 +510,7 @@ def main():
                 update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 5, new_stage)
                 st.success(f"✅ Stage updated to '{new_stage}'")
         if new_stage == 'Referral Request':
-            job_link = st.text_input("🔗 Job Link for referral:")
+            job_link = st.text_input("🔗 Job Link for referral:", value=job_link)
             message_filled = common_dict[new_stage].format(
                 Name=name.capitalize(),
                 Company=company_name,
