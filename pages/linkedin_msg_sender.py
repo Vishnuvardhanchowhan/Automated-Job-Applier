@@ -453,14 +453,21 @@ def main():
     # ---------------- SELECT PROSPECT ----------------
     st.sidebar.title("💬 LinkedIn Prospect Details")
     add_new = st.sidebar.checkbox("➕ Add New Prospect")
-
     if add_new:
         st.sidebar.subheader("Add New Prospect")
         new_name = st.sidebar.text_input("Prospect Name")
         new_link = st.sidebar.text_input("LinkedIn Profile Link")
-        new_company = st.sidebar.text_input("Company Name")
-
-        # Dynamic role options based on user
+        company_options = df["Company"].dropna().unique().tolist()
+        company_options.append("➕ Add New Company")
+        selected = st.sidebar.selectbox(
+            "Company",
+            company_options,
+            index=len(company_options) - 1
+        )
+        if selected == "➕ Add New Company":
+            new_company = st.sidebar.text_input("Company Name")
+        else:
+            new_company = selected
         role_options = ROLE_OPTIONS.get(user, [])
         new_role = st.sidebar.selectbox("Role", role_options)
         new_stage = st.sidebar.selectbox("Stage", STAGE_OPTIONS)
@@ -470,7 +477,6 @@ def main():
         if st.sidebar.button("Add Prospect"):
             if new_name not in df.index:
                 if all([new_name, new_link, new_company, new_role, new_stage]):
-                    # Append to Google Sheet
                     RANGE_NAME = f"{user}!A:F"
                     body = {"values": [[new_name, new_link, new_company, new_role, new_stage, job_link]]}
                     try:
@@ -480,8 +486,6 @@ def main():
                             valueInputOption="RAW",
                             body=body
                         ).execute()
-
-                        # Update local DataFrame immediately
                         df.loc[new_name] = [new_link, new_company, new_role, new_stage, job_link]
                         st.success(f"✅ Prospect '{new_name}' added successfully!")
                     except Exception as e:
