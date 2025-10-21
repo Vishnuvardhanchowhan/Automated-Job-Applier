@@ -510,7 +510,7 @@ def main():
                 update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 5, new_stage)
                 st.success(f"✅ Stage updated to '{new_stage}'")
         if new_stage == 'Referral Request':
-            job_link = st.text_input("🔗 Job Link for referral:", value=job_link)
+            job_link = st.text_input("🔗 Job Link for referral:", value=job_link if job_link is not None else "")
             message_filled = common_dict[new_stage].format(
                 Name=name.capitalize(),
                 Company=company_name,
