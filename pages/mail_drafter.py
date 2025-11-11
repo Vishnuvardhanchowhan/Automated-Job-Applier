@@ -694,6 +694,7 @@ class EmailSender:
             Ph: 7093263001<br>
             ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
             <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            <a href="https://my-digital-creations.lovable.app/">Portfolio</a></p>
             Hyderabad, Telangana</p>
             """
 
@@ -728,6 +729,7 @@ class EmailSender:
             Ph: 7093263001<br>
             ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
             <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            <a href="https://my-digital-creations.lovable.app/">Portfolio</a></p>
             Hyderabad, Telangana</p>
             """
 
@@ -761,6 +763,7 @@ class EmailSender:
             Ph: 7093263001<br>
             ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
             <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            <a href="https://my-digital-creations.lovable.app/">Portfolio</a></p>
             Hyderabad, Telangana</p>
             """
 
@@ -794,6 +797,7 @@ class EmailSender:
             Ph: 7093263001<br>
             ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
             <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            <a href="https://my-digital-creations.lovable.app/">Portfolio</a></p>
             Hyderabad, Telangana</p>
             """
 
@@ -828,6 +832,7 @@ class EmailSender:
             Ph: 7093263001<br>
             ✉ <a href="mailto:pollojukiran06@gmail.com">pollojukiran06@gmail.com</a><br>
             <a href="https://www.linkedin.com/in/polloju-sai-kiran/">LinkedIn</a><br>
+            <a href="https://my-digital-creations.lovable.app/">Portfolio</a></p>
             Hyderabad, Telangana</p>
             """
 

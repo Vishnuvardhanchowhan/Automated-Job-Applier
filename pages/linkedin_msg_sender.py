@@ -287,7 +287,7 @@ def main():
             
             Thank you for accepting my connection!
             
-            I have about 1.5 years of experience as a Full Stack Developer intern across two companies — most recently at Bintix, where I worked extensively with React, Node.js, and TypeScript to build scalable web applications.
+            I have about an year of experience as a Full Stack Developer intern across two companies — most recently at Bintix, where I worked extensively with React, Node.js, and TypeScript to build scalable web applications.
             
             I’m really eager to explore how I could contribute my {Role} skills to your team or upcoming projects.
             
@@ -355,7 +355,7 @@ def main():
 
             I came across your profile while looking into opportunities at {Company}, and I was inspired by the projects and culture your team promotes.
 
-            I have around 1.5 years of experience as a Full Stack Developer intern, working with React, Node.js, and TypeScript to build scalable and user-friendly web applications. I’d love to know if there are any openings where my {Role} skills could be a fit.
+            I have around an year of experience as a Full Stack Developer intern, working with React, Node.js, and TypeScript to build scalable and user-friendly web applications. I’d love to know if there are any openings where my {Role} skills could be a fit.
 
             I’ve attached my resume for your reference.  
             Looking forward to connecting!
