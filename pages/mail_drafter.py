@@ -613,36 +613,97 @@ class EmailSender:
             self.bullet3 = "Implemented secure role-based access systems and optimized database queries to enhance application performance."
             self.highlights = "Full-Stack Development, React.js, Node.js, TypeScript, REST APIs, Software Architecture"
             self.cta = f"I’d be excited to discuss how my software development expertise can support {self.company_name} in building scalable and user-friendly applications."
+        elif self.role == 'Process Associate':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
 
-        self.TEMPLATE = """{today}
-                Hiring Manager
-                {company}
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> position at <b>{self.company_name}</b>. 
+            I came across your profile on LinkedIn and wanted to connect directly. 
+            Thank you for considering my application.</p>
 
-                Dear {hiring_manager},
+            <p>I have experience in <b>data processing, workflow optimization, and process documentation</b> 
+            to ensure smooth and accurate business operations. My recent contributions include:</p>
 
-                I’m excited to apply for the <b>{role}</b> role at <b>{company}</b>. With a strong foundation in 
-                full-stack development, I bring proven expertise in building scalable applications and crafting 
-                seamless user experiences.
+            <ul>
+            <li>Processing large data sets and ensuring 100% accuracy through verification and validation steps.</li>
+            <li>Maintaining detailed documentation for audits, performance tracking, and process improvements.</li>
+            <li>Collaborating with cross-functional teams to resolve operational bottlenecks and streamline workflows.</li>
+            </ul>
 
-                I specialize in {highlights}, and I’ve applied these skills to deliver impactful projects.
+            <p>With my attention to detail, <b>process discipline, and commitment to efficiency</b>, 
+            I look forward to supporting <b>{self.company_name}</b> in delivering seamless business operations.</p>
 
-                Why {company}? {why_company}
+            <p><b>Best regards,</b><br>
+            <b>Sakshi Gawande</b><br>
+            Ph: <a href="tel:+917057634407">7057634407</a><br>
+            <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a></p>
+            """
 
-                My experience has equipped me with skills directly relevant to this role:  
-                
-                • <b>{bullet1}</b>
-                
-                • <b>{bullet2}</b>
-                
-                • <b>{bullet3}</b>
+            self.bullet1 = "Processed and verified large datasets with a focus on accuracy and consistency across workflows."
+            self.bullet2 = "Created and maintained process documentation for audits and operational transparency."
+            self.bullet3 = "Collaborated with internal teams to identify and resolve process inefficiencies."
+            self.highlights = "Data Processing, Process Optimization, Documentation, MS Excel, Workflow Management"
+            self.cta = f"I’m eager to contribute to {self.company_name} by ensuring efficient and accurate execution of core business processes."
 
-                {cta}
-
-                <b>Best regards,</b>  
-                <b>Sakshi Gawande</b>  
-                7057634407 | ✉ sakshigawandecse@gmail.com
-                <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a></p>
-                """
+        if self.role in ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Developer']:
+            self.TEMPLATE = """{today}
+                    Hiring Manager
+                    {company}
+    
+                    Dear {hiring_manager},
+    
+                    I’m excited to apply for the <b>{role}</b> role at <b>{company}</b>. With a strong foundation in 
+                    full-stack development, I bring proven expertise in building scalable applications and crafting 
+                    seamless user experiences.
+    
+                    I specialize in {highlights}, and I’ve applied these skills to deliver impactful projects.
+    
+                    Why {company}? {why_company}
+    
+                    My experience has equipped me with skills directly relevant to this role:  
+                    
+                    • <b>{bullet1}</b>
+                    
+                    • <b>{bullet2}</b>
+                    
+                    • <b>{bullet3}</b>
+    
+                    {cta}
+    
+                    <b>Best regards,</b>  
+                    <b>Sakshi Gawande</b>  
+                    7057634407 | ✉ sakshigawandecse@gmail.com
+                    <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a></p>
+                    """
+        else:
+            self.TEMPLATE = """{today}
+                            Hiring Manager
+                            {company}
+    
+                            Dear {hiring_manager},
+    
+                            I’m excited to apply for the <b>{role}</b> position at <b>{company}</b>. With a strong foundation in 
+                            operations, coordination, and communication, I bring a proven ability to manage processes efficiently 
+                            and contribute to team success.
+    
+                            I specialize in {highlights}, and I’ve consistently applied these skills to improve workflows and support 
+                            organizational goals.
+    
+                            Why {company}? {why_company}
+    
+                            My experience has equipped me with skills directly relevant to this role:  
+    
+                            • <b>{bullet1}</b>  
+                            • <b>{bullet2}</b>  
+                            • <b>{bullet3}</b>
+    
+                            {cta}
+    
+                            <b>Best regards,</b>  
+                            <b>Sakshi Gawande</b>  
+                            7057634407 | ✉ sakshigawandecse@gmail.com  
+                            <a href="linkedin.com/in/sakshi-gawande-0095351ab">LinkedIn</a>
+                            """
 
 
         self.text = self.TEMPLATE.format(
@@ -663,7 +724,10 @@ class EmailSender:
         self.pdf_filename = generate_cover_letter_pdf(self.text, self.name.capitalize(), self.official_role,
                                                       f"{st.session_state.get('username')} Cover Letter.pdf")
         self.official_name = "sakshigawandecse@gmail.com"
-        self.resume_path = r"Sakshi_Gawande_Resume.pdf"
+        if self.role in ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Developer']:
+            self.resume_path = r"Sakshi_Gawande_Resume_tech.pdf"
+        else:
+            self.resume_path = r"Sakshi_Gawande_Resume_non_tech.pdf"
         return self.email_body, self.pdf_filename, self.official_name, self.resume_path
 
     def sai(self):
@@ -1202,7 +1266,7 @@ def main():
     if user == 'vishnu':
         role = st.selectbox("Select the Role", ['Data Analyst', 'Data Scientist', 'Data Engineer','Machine Learning Engineer', 'Data Governance Analyst', 'Product Analyst', 'Python Developer'])
     elif user == 'sakshi':
-        role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Developer'])
+        role = st.selectbox("Select the Role", ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Developer', 'Process Associate'])
     elif user == 'sai':
         role = st.selectbox("Select the Role", ['Full Stack Engineer', 'Android Developer', 'Frontend Developer', 'Mobile Developer', 'Software Developer', 'Software Engineer'])
     elif user == 'harsha':
