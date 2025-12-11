@@ -353,15 +353,19 @@ def main():
         "sakshi": dedent("""\
             Hi {Name},
 
-            I came across your profile while looking into opportunities at {Company}, and I was inspired by the projects and culture your team promotes.
+            I came across the {Role} opening at {Company}, and was impressed by the impactful work your team is doing.
+            
+            Here’s the role I’m referring to:
+            {job_link}
+            
+            I have around an year of experience as a Full Stack Developer intern, working with React, Node.js, and TypeScript to build scalable and user-friendly web applications.
+            
+            I’ve also attached my resume for your reference. I’d love to explore whether my skills could be a good fit for the role.
+            
+            Looking forward to connecting & discussing great things with you!
 
-            I have around an year of experience as a Full Stack Developer intern, working with React, Node.js, and TypeScript to build scalable and user-friendly web applications. I’d love to know if there are any openings where my {Role} skills could be a fit.
-
-            I’ve attached my resume for your reference.  
-            Looking forward to connecting!
-
-            Thanks,  
-            {user}
+            Thanks,
+            {user}.
         """),
 
         "harsha": dedent("""\
@@ -472,7 +476,7 @@ def main():
         new_role = st.sidebar.selectbox("Role", role_options)
         new_stage = st.sidebar.selectbox("Stage", STAGE_OPTIONS)
         job_link = ""
-        if new_stage == "Referral Request":
+        if new_stage in ["Referral Request", 'Direct HR/Manager Text']:
             job_link = st.sidebar.text_input("🔗 Job Link for referral")
         if st.sidebar.button("Add Prospect"):
             if new_name not in df.index:
@@ -565,13 +569,13 @@ def main():
             if new_stage != stage:
                 update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 5, new_stage)
                 st.success(f"✅ Stage updated to '{new_stage}'")
-            if new_stage == 'Referral Request':
+            if new_stage in ['Referral Request', 'Direct HR/Manager Text']:
                 job_link = st.text_input("🔗 Job Link for referral:", value=job_link if job_link is not None else "")
                 if job_link.startswith("http"):
                     update_cells(service, SPREADSHEET_ID, user, df.index.get_loc(name) + 2, 6, job_link)
                     st.success(f"✅ Job Link updated")
             st.markdown(f"[🔗 View LinkedIn Profile]({profile_link})", unsafe_allow_html=True)
-        if new_stage == 'Referral Request':
+        if new_stage in ['Referral Request', 'Direct HR/Manager Text']:
             message_filled = common_dict[new_stage].format(
                 Name=name.capitalize(),
                 Company=company_name,
