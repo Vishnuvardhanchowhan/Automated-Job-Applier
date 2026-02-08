@@ -20,6 +20,10 @@ credentials:
       email: macharlabhanu169@gmail.com
       name: Bhanu Macharla
       password: '$2b$12$JZ96XhqBdPRCUO0Ijx3/m.k0m/158u3Js9uszP3.ubg/.47jopdWy'
+    ashrith:
+      email: sakam.saiashrith2004@gmail.com
+      name: Ashrith Reddy
+      password: '$2b$12$BhdsYLXdfw3D8dhkcCxhruHlup6IGI5XlwahmMPApRpC/a5g5gVzC'
 cookie:
   expiry_days: 0
   key: random_signature_key

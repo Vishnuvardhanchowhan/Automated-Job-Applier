@@ -52,7 +52,8 @@ ROLE_OPTIONS = {
     "sai": ['Full Stack Engineer', 'Android Developer', 'Frontend Developer', 'Mobile Developer',
             'Software Developer', 'Software Engineer'],
     "harsha": ['Data Analyst', 'Market Researcher', 'Project Manager'],
-    "bhanu": ['Full Stack Developer', 'Software Developer', 'Backend Developer']
+    "bhanu": ['Full Stack Developer', 'Software Developer', 'Backend Developer'],
+    'ashrith': ['Full Stack Developer', 'Software Developer', 'AI/ML Engineer', 'Backend Developer', 'IAM Engineer']
 }
 
 STAGE_OPTIONS = ["Send a Note", "Start", "After Reply", "Referral Request", "Follow-up", 'Direct HR/Manager Text']
@@ -238,6 +239,16 @@ def main():
             {user}
         """),
 
+        "ashrith": dedent("""\
+                Hi {Name}, 
+
+                I really liked the projects at {Company}! 
+                I’m a full-stack developer exploring roles that align with my {Role} skills — would love to connect!
+
+                Thanks,
+                {user}
+            """),
+
         "harsha": dedent("""\
             Hi {Name}, 
             
@@ -294,6 +305,20 @@ def main():
             Thanks,
             {user}
         """),
+        "ashrith": dedent("""\
+            Hi {Name},
+        
+            Thank you for accepting my connection!
+        
+            I have hands-on experience building end-to-end applications with a strong focus on backend systems, authentication flows, and database-driven platforms. Recently, I developed a peer-to-peer rental marketplace where I worked across frontend, backend, and deployment, implementing user authentication, role-based features, and scalable APIs.
+        
+            I also enjoy integrating AI-powered features into web applications and working with Python, MongoDB, and REST APIs to build production-ready systems.
+        
+            I’m really interested in exploring how I could contribute my {Role} skills to your team or upcoming projects.
+        
+            Thanks,  
+            {user}
+            """),
 
         "harsha": dedent("""\
             Hello {Name},
@@ -367,6 +392,26 @@ def main():
             Thanks,
             {user}.
         """),
+
+        "ashrith": dedent("""\
+            Hi {Name},
+        
+            I came across the {Role} opening at {Company}, and was impressed by the impactful work your team is doing.
+        
+            Here’s the role I’m referring to:
+            {job_link}
+        
+            I have hands-on experience building full-stack applications with a strong focus on backend systems, authentication flows, and scalable APIs. I’ve worked on projects involving user authentication, role-based access, database-driven platforms, and deployment of production-ready web applications.
+        
+            I’ve also developed AI-powered features like voice synthesis services and real-time detection systems, turning machine learning models into usable web APIs.
+        
+            I’ve attached my resume for your reference and would love to explore whether my skills could be a good fit for the role.
+        
+            Looking forward to connecting & discussing great things with you!
+        
+            Thanks,  
+            {user}
+            """),
 
         "harsha": dedent("""\
             Hello {Name},

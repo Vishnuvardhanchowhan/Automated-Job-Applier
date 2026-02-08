@@ -1253,6 +1253,199 @@ class EmailSender:
         self.resume_path = r"Macharla Venkata Bhanu Resume.pdf"
         return self.email_body, self.pdf_filename, self.official_name, self.resume_path
 
+    def ashrith(self):
+
+        if self.role == 'IAM Engineer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to express my interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I came across your profile on LinkedIn and wanted to reach out directly. 
+            Thank you for taking the time to consider my application.</p>
+
+            <p>I currently work as an <b>Integration Intern</b> where I specialize in 
+            <b>IAM/CIAM integrations and secure access systems</b>. My hands-on experience includes:</p>
+
+            <ul>
+            <li>Integrating IAM platforms like <b>Entra ID, Kinde, WorkOS, and Zitadel</b> using REST APIs.</li>
+            <li>Implementing secure authentication flows with <b>OAuth2, OpenID Connect (OIDC), and token management</b>.</li>
+            <li>Managing user provisioning, role operations, and identity lifecycle automation.</li>
+            </ul>
+
+            <p>With strong expertise in <b>identity security, API integrations, and authentication systems</b>, 
+            I’m excited to contribute to <b>{self.company_name}</b>’s identity and access management initiatives.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Ashrith</b></p>
+            """
+
+            self.bullet1 = "Integrated modern IAM/CIAM platforms using OAuth2/OIDC and REST APIs."
+            self.bullet2 = "Implemented token-based authentication, user provisioning, and role-based access control."
+            self.bullet3 = "Worked on secure identity lifecycle and access governance integrations."
+            self.highlights = "IAM, OAuth2, OpenID Connect, Entra ID, WorkOS, Zitadel, REST APIs"
+            self.cta = f"I’d love to discuss how my IAM integration experience can strengthen {self.company_name}'s security architecture."
+
+        elif self.role == 'Backend Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’d like to apply for the <b>{self.role_name}</b> position at <b>{self.company_name}</b>. 
+            I have strong experience building backend systems and API-driven applications.</p>
+
+            <p>My technical background includes:</p>
+
+            <ul>
+            <li>Developing REST APIs for IAM, authentication, and secure system integrations.</li>
+            <li>Building backend services in <b>Python</b> and working with <b>MongoDB</b> databases.</li>
+            <li>Deploying AI/ML-powered services like voice synthesis and real-time detection systems.</li>
+            </ul>
+
+            <p>I enjoy designing <b>scalable backend architectures, secure APIs, and data-driven services</b>, 
+            and would love to bring this expertise to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Ashrith</b></p>
+            """
+
+            self.bullet1 = "Built secure REST APIs for authentication, identity systems, and application integrations."
+            self.bullet2 = "Developed backend services using Python and MongoDB for scalable applications."
+            self.bullet3 = "Deployed ML-powered APIs including voice synthesis and fraud detection systems."
+            self.highlights = "Python, REST APIs, MongoDB, Backend Systems, Authentication, API Development"
+            self.cta = f"I’d love to explore how my backend and API expertise can support {self.company_name}'s engineering goals."
+
+        elif self.role == 'AI/ML Engineer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’m excited to apply for the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            My background combines practical machine learning development with real-world deployment experience.</p>
+
+            <p>Some of my key AI/ML work includes:</p>
+
+            <ul>
+            <li>Developing a <b>voice cloning and synthesis system</b> using Tacotron 2 and TensorFlow.</li>
+            <li>Building a <b>fake social media account detection system</b> with a 50% accuracy improvement over baseline models.</li>
+            <li>Deploying ML models as production-ready APIs using <b>Flask</b>.</li>
+            </ul>
+
+            <p>I’m passionate about <b>applied AI, model optimization, and real-time ML deployment</b>, 
+            and I’m eager to contribute to innovative AI solutions at <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Ashrith</b></p>
+            """
+
+            self.bullet1 = "Built and fine-tuned deep learning models for voice synthesis using Tacotron 2."
+            self.bullet2 = "Developed ML systems for fake account detection with significant accuracy gains."
+            self.bullet3 = "Deployed machine learning models as scalable Flask-based APIs."
+            self.highlights = "Python, TensorFlow, Machine Learning, NLP, Flask APIs, Deep Learning"
+            self.cta = f"I’d be thrilled to bring my AI/ML development and deployment experience to {self.company_name}."
+
+        elif self.role == 'Software Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’m writing to express interest in the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            My experience spans <b>secure integrations, backend development, and AI-powered applications</b>.</p>
+
+            <p>Highlights of my work include:</p>
+
+            <ul>
+            <li>Integrating IAM and PAM platforms with secure OAuth2/OIDC authentication flows.</li>
+            <li>Building backend systems and REST APIs using Python and MongoDB.</li>
+            <li>Developing AI-based solutions including voice synthesis and social media fraud detection.</li>
+            </ul>
+
+            <p>With a blend of <b>security, backend engineering, and machine learning</b>, 
+            I’m confident in delivering scalable and impactful solutions at <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Ashrith</b></p>
+            """
+
+            self.bullet1 = "Worked across IAM, backend engineering, and AI-powered system development."
+            self.bullet2 = "Built secure APIs, authentication systems, and database-driven applications."
+            self.bullet3 = "Developed and deployed machine learning solutions for real-world use cases."
+            self.highlights = "Software Development, Python, Security Integrations, APIs, Machine Learning"
+            self.cta = f"I’d love to discuss how my cross-domain development experience can add value to {self.company_name}."
+
+        elif self.role == 'Full Stack Developer':
+            self.email_body = f"""
+            <p>Hi {self.recruiter},</p>
+
+            <p>I’m excited to apply for the <b>{self.role_name}</b> role at <b>{self.company_name}</b>. 
+            I bring hands-on experience building <b>end-to-end web applications</b> along with strong backend and AI-powered system development.</p>
+
+            <p>Some of my key full-stack work includes:</p>
+
+            <ul>
+            <li>Building <b>RentHub</b>, a peer-to-peer rental marketplace with user authentication, seller profiles, item management, ownership verification, and a community rating system using <b>HTML, JavaScript, and MongoDB</b>.</li>
+            <li>Developing backend APIs and deploying applications using cloud platforms like <b>Render</b> for production-ready systems.</li>
+            <li>Creating AI-powered web services like a <b>voice cloning & synthesis platform</b> deployed via Flask APIs.</li>
+            </ul>
+
+            <p>I enjoy working across the <b>frontend, backend, and database layers</b> to build scalable, user-focused applications, and I’m eager to bring this mindset to <b>{self.company_name}</b>.</p>
+
+            <p><b>Best regards,</b><br>
+            <b>Ashrith</b></p>
+            """
+
+            self.bullet1 = "Developed full-stack applications with authentication, user roles, and database-driven features."
+            self.bullet2 = "Built and deployed REST APIs and backend services using Python, Flask, and MongoDB."
+            self.bullet3 = "Integrated AI/ML functionality into web platforms, turning models into real-world usable applications."
+            self.highlights = "Full Stack Development, JavaScript, MongoDB, Python, Flask, REST APIs, Web Deployment"
+            self.cta = f"I’d love to discuss how my full-stack and AI-integrated development experience can contribute to {self.company_name}’s product engineering team."
+
+        self.TEMPLATE = """{today}
+                        Hiring Manager
+                        {company}
+
+                        Dear {hiring_manager},
+
+                        I’m enthusiastic about applying for the <b>{role}</b> role at <b>{company}</b>, where I see a strong alignment between my
+                        experience and your product-focused engineering culture.
+
+                        I specialize in {highlights}, and I’ve used these skills to deliver measurable impact.
+
+                        Why {company}? {why_company}
+
+                        What I bring:
+
+                        • <b>{bullet1}</b>
+
+                        • <b>{bullet2}</b>
+
+                        • <b>{bullet3}</b>
+
+                        {cta}
+
+                        <b>Best regards,</b>  
+                        <b>Ashrith Reddy</b>  
+                        9492903419 | ✉ sakam.saiashrith2004@gmail.com 
+                        GitHub: https://github.com/AshrithReddy08  
+                        LinkedIn: https://www.linkedin.com/in/ashrith-reddy-248a1625a"""
+        self.text = self.TEMPLATE.format(
+            today=date.today().strftime("%B %d, %Y"),
+            hiring_manager=self.recruiter or "Hiring Manager",
+            role=self.role_name,
+            company=self.company_name,
+            highlights=self.highlights,
+            why_company=self.why_company,
+            bullet1=self.bullet1,
+            bullet2=self.bullet2,
+            bullet3=self.bullet3,
+            cta=self.cta
+        )
+        self.text = dedent(self.text)
+        self.name = 'Ashrith Reddy'
+        self.official_role = 'Full Stack Developer'
+        self.pdf_filename = generate_cover_letter_pdf(self.text, self.name.capitalize(), self.official_role,
+                                                      f"{st.session_state.get('username')} Cover Letter.pdf")
+        self.official_name = "sakam.saiashrith2004@gmail.com"
+        self.resume_path = r"Ashrith Reddy Resume.pdf"
+        return self.email_body, self.pdf_filename, self.official_name, self.resume_path
+
+
 def main():
     # ---------------- STREAMLIT UI ----------------
     st.set_page_config(page_title="Automated Job Application", page_icon="📧")
@@ -1275,6 +1468,8 @@ def main():
         role = st.selectbox("Select the Role", ['Data Analyst', 'Market Researcher', 'Project Manager'])
     elif user == 'bhanu':
         role = st.selectbox("Select the Role", ['Full Stack Developer', 'Software Developer', 'Backend Developer'])
+    elif user == 'ashrith':
+        role  = st.selectbox("Select the Role", ['Full Stack Developer', 'Software Developer', 'AI/ML Engineer', 'Backend Developer', 'IAM Engineer'])
 
     role_name = st.text_input("Official Role Name (as per Job Posting)", placeholder="Type here...")
     if not role_name:
@@ -1368,7 +1563,7 @@ def main():
             has_error = True
         if has_error:
             st.stop()
-        pass_dict = {'sakshigawandecse@gmail.com':"illr ufri rqeo cwia", "vishnuvardhan.chowhan@gmail.com": "dipi cqsq sgvz ukof", "pollojukiran06@gmail.com": "hros iuyd sbhs ptgh", "harshajha13@gmail.com": "rnrq afrs yicb kuyg", "macharlabhanu169@gmail.com": "yzml pmkv bzqh ytxz"}
+        pass_dict = {'sakshigawandecse@gmail.com':"illr ufri rqeo cwia", "vishnuvardhan.chowhan@gmail.com": "dipi cqsq sgvz ukof", "pollojukiran06@gmail.com": "hros iuyd sbhs ptgh", "harshajha13@gmail.com": "rnrq afrs yicb kuyg", "macharlabhanu169@gmail.com": "yzml pmkv bzqh ytxz", "sakam.saiashrith2004@gmail.com":"dslf mlsm mrth lnor" }
         if not recruiter_mail or not company_name or not role_name:
             st.warning("⚠️ Please fill in all the fields before sending.")
         else:
